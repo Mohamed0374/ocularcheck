@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EyeGuard AI - Doctor Dashboard</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#94f990",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#002c4f",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#005313",
+                    "on-primary-fixed-variant": "#00497d",
+                    "primary": "#0061a4",
+                    "on-background": "#1b1c1c",
+                    "surface-container-low": "#f6f3f2",
+                    "on-tertiary-container": "#392900",
+                    "inverse-surface": "#303030",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#b98b00",
+                    "surface-variant": "#e5e2e1",
+                    "on-tertiary-fixed": "#261a00",
+                    "secondary-container": "#91f78e",
+                    "secondary-fixed-dim": "#78dc77",
+                    "secondary": "#006e1c",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "surface": "#fcf9f8",
+                    "surface-container-high": "#eae7e7",
+                    "inverse-primary": "#9ecaff",
+                    "primary-fixed-dim": "#9ecaff",
+                    "on-secondary-fixed": "#002204",
+                    "on-primary-fixed": "#001d36",
+                    "surface-container": "#f0eded",
+                    "inverse-on-surface": "#f3f0ef",
+                    "primary-fixed": "#d1e4ff",
+                    "on-surface": "#1b1c1c",
+                    "tertiary": "#785900",
+                    "surface-container-highest": "#e5e2e1",
+                    "surface-tint": "#0061a4",
+                    "background": "#fcf9f8",
+                    "tertiary-fixed": "#ffdf9e",
+                    "surface-bright": "#fcf9f8",
+                    "error": "#ba1a1a",
+                    "on-surface-variant": "#404752",
+                    "tertiary-fixed-dim": "#fabd00",
+                    "on-secondary-container": "#00731e",
+                    "on-tertiary-fixed-variant": "#5b4300",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#bfc7d4",
+                    "primary-container": "#2196f3",
+                    "outline": "#707883",
+                    "surface-dim": "#dcd9d9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "base": "8px",
+                    "margin-desktop": "64px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        /* Hide scrollbar for cleaner UI */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.surface-variant');
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased min-h-screen flex flex-col font-body-md text-body-md">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-4 py-2 z-50 docked full-width top-0 sticky bg-surface/80 backdrop-blur-xl shadow-sm border-b border-surface-variant/30">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">visibility</span>
+<span class="font-headline-md text-headline-md font-bold text-primary">EyeGuard AI</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container-highest shadow-sm">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A professional, well-lit portrait of a doctor wearing a clinical white coat, smiling warmly. The background is a blurred, modern hospital corridor with light blue tones, conveying a sense of clean, advanced medical technology and trust. High resolution, shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkJxUc9ffiO3ZvoLY91teGih5FyCei-6HHfij1uAbsvLiquIR2fBuS3LOQkTqB0mecKZF7Gyqb0fYivYZjYOJ6ME931eEfcSQgaQeiY9j3fOI9A0g6_sT7xJ0xC-BSE0UhDmdkDj6SZlMZzk8NiYMMZFcsdWEhupqv-xJoAABQfN2PGAwCBicotFCjBmLyKzEC6RR192IovxJJxExDA0_5yz3MgHhgLo9uIXfCy68mt6rOM4wrpitUVPLafMmNi4_4g58VPzhOs9w"/>
+</div>
+</div>
+</header>
+<!-- Main Layout -->
+<div class="flex flex-1 overflow-hidden relative">
+<!-- Desktop SideNav (Derived from BottomNavBar logic for desktop) -->
+<aside class="hidden md:flex flex-col w-[240px] border-r border-surface-variant/50 bg-surface-container-lowest z-40 p-4 gap-2">
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-xl font-label-md text-label-md font-bold transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-primary rounded-xl font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined">center_focus_strong</span>
+                Scan
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-primary rounded-xl font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined">event_note</span>
+                Schedule
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-primary rounded-xl font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined">show_chart</span>
+                History
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-primary rounded-xl font-label-md text-label-md transition-all mt-auto" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 overflow-y-auto p-margin-mobile md:p-gutter pb-[100px] md:pb-gutter">
+<div class="max-w-container-max mx-auto space-y-6 md:space-y-8">
+<!-- Page Header -->
+<div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-background">Morning Rounds</h1>
+<p class="text-on-surface-variant mt-1">Dr. Aris Thorne • Ophthalmology Dept.</p>
+</div>
+<!-- Summary Stats (Bento Top Row) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+<!-- High Risk -->
+<div class="bg-error-container rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-error/10 hover:-translate-y-1 transition-transform duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center text-error">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<span class="bg-error text-on-error px-3 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-wider">Critical Action</span>
+</div>
+<div>
+<div class="font-headline-lg text-headline-lg text-on-error-container mb-1">3</div>
+<div class="font-headline-md text-headline-md text-on-error-container/80">High Risk Cases</div>
+</div>
+<!-- Decorative background element -->
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-8xl text-error/5 rotate-12 pointer-events-none" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<!-- Pending Reviews -->
+<div class="bg-primary-container/20 rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-primary/10 hover:-translate-y-1 transition-transform duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pending_actions</span>
+</div>
+</div>
+<div>
+<div class="font-headline-lg text-headline-lg text-on-primary-container mb-1">12</div>
+<div class="font-headline-md text-headline-md text-on-primary-container/80">Pending Reviews</div>
+</div>
+<!-- Decorative background element -->
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-8xl text-primary/5 rotate-12 pointer-events-none" style="font-variation-settings: 'FILL' 1;">preview</span>
+</div>
+</div>
+<!-- Main Bento Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Critical Cases (Spans 8 cols) -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-[24px] p-6 shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-surface-variant/40 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-error">priority_high</span>
+                                Priority Scans
+                            </h2>
+<button class="text-primary font-label-md text-label-md hover:underline">View All</button>
+</div>
+<div class="space-y-4 flex-1">
+<!-- Case Item 1 -->
+<div class="group flex items-center justify-between p-4 rounded-xl border border-surface-variant/30 hover:border-primary/40 hover:bg-surface-container-low transition-all cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant shrink-0">
+<img alt="Patient Eye Scan" class="w-full h-full object-cover" data-alt="A detailed macro photograph of an elderly patient's eye structure, used as an abstract representation for a patient profile. The image shows intricate details of the iris and sclera under harsh clinical lighting, with subtle digital overlay grid lines suggesting AI analysis. Color palette is cool blues and stark whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZupSUy6_Rfuykf0LS1AfHl4pkiEO7rXulDmsgNgpO_yOVmIMqlc1xCALJjNybEEb4H19UsI6M6bAYIN70PddiSlD1qoVx2WOEJ3-MOZ6uV4ekGthLRcz3fSU4z3jU3WzDCS8-Zzn6i4Njzl84CiPc0G-hnEkHhXlys3vxJP9ULpcFqipWaqzJbvlnW9VURHt6yMY3s32xtP7xaTO-MmtNiP4a2p6w2OduPr_Xq2HKAhmuby8FwI75N8Ry6oPOQqRPI7Y0VN4e9UE"/>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-background font-bold group-hover:text-primary transition-colors">Marcus Chen</div>
+<div class="text-sm text-on-surface-variant">ID: PT-8921 • Suspected Glaucoma Progression</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="bg-error/10 text-error px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">timer</span> 10m ago
+                                    </span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+<!-- Case Item 2 -->
+<div class="group flex items-center justify-between p-4 rounded-xl border border-surface-variant/30 hover:border-primary/40 hover:bg-surface-container-low transition-all cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant shrink-0">
+<img alt="Patient Eye Scan" class="w-full h-full object-cover" data-alt="An abstract visualization of a retina scan, featuring vibrant orange and red neural pathways against a deep black background. The image looks highly technical and medical, resembling an advanced diagnostic imaging output from a cutting-edge ophthalmic device." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmLu-3ZxSuQ9JkBPWscJ5k9hMFlU8Xgrt884ydGqUA1_NUBkRXmAS9I3LVnxc8a1RcamfKV_R9wacmHDL9R0kRJTMm7fJn6NxMK2Dd8km4BpTe5Mq7rr04zmnfoF7MiIzBq0G9TV6fNZbAAw5HmaKA9hZw4FVf6S5wedd-tMcoHHuJyyzC4hzf9L5PJp0oab-9RlXvHRC82SX9P50mkiL431kQOBubcVX9jYJVBtn2878_BJR4oq0yevgnWEWF2U4rEZ8wq3n_n60"/>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-background font-bold group-hover:text-primary transition-colors">Sarah Jenkins</div>
+<div class="text-sm text-on-surface-variant">ID: PT-4432 • Macular Degeneration Alert</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="bg-error/10 text-error px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">timer</span> 45m ago
+                                    </span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Patient Queue (Spans 4 cols) -->
+<div class="lg:col-span-4 bg-surface-container-lowest rounded-[24px] p-6 shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-surface-variant/40 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-on-background">Live Queue</h2>
+<div class="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
+</div>
+<div class="relative pl-4 border-l-2 border-surface-variant/50 space-y-6">
+<!-- Queue Item -->
+<div class="relative">
+<div class="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-primary ring-4 ring-surface-container-lowest"></div>
+<div class="font-label-sm text-label-sm text-primary mb-1">09:15 AM</div>
+<div class="bg-surface-container-low rounded-lg p-3">
+<div class="font-label-md text-label-md text-on-background font-bold">James Wilson</div>
+<div class="text-xs text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">medical_services</span> OCT Scan • Room 2
+                                    </div>
+</div>
+</div>
+<!-- Queue Item -->
+<div class="relative opacity-60">
+<div class="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-outline-variant ring-4 ring-surface-container-lowest"></div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mb-1">09:45 AM</div>
+<div class="bg-surface rounded-lg p-3 border border-surface-variant/30">
+<div class="font-label-md text-label-md text-on-background font-bold">Elena Rostova</div>
+<div class="text-xs text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">visibility</span> Visual Field • Room 1
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface-container-highest/90 backdrop-blur-2xl shadow-[0_-4px_12px_rgba(0,0,0,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1.5 -translate-y-1 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-sm text-label-sm mt-1">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">center_focus_strong</span>
+<span class="font-label-sm text-label-sm mt-1">Scan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-label-sm text-label-sm mt-1">Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">show_chart</span>
+<span class="font-label-sm text-label-sm mt-1">History</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm mt-1">Settings</span>
+</a>
+</nav>
+</body></html>

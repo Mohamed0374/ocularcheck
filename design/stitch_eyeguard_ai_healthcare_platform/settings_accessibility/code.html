@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EyeGuard AI - Settings &amp; Accessibility</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#94f990",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#002c4f",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#005313",
+                        "on-primary-fixed-variant": "#00497d",
+                        "primary": "#0061a4",
+                        "on-background": "#1b1c1c",
+                        "surface-container-low": "#f6f3f2",
+                        "on-tertiary-container": "#392900",
+                        "inverse-surface": "#303030",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#b98b00",
+                        "surface-variant": "#e5e2e1",
+                        "on-tertiary-fixed": "#261a00",
+                        "secondary-container": "#91f78e",
+                        "secondary-fixed-dim": "#78dc77",
+                        "secondary": "#006e1c",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "surface-container-high": "#eae7e7",
+                        "inverse-primary": "#9ecaff",
+                        "primary-fixed-dim": "#9ecaff",
+                        "on-secondary-fixed": "#002204",
+                        "on-primary-fixed": "#001d36",
+                        "surface-container": "#f0eded",
+                        "inverse-on-surface": "#f3f0ef",
+                        "primary-fixed": "#d1e4ff",
+                        "on-surface": "#1b1c1c",
+                        "tertiary": "#785900",
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-tint": "#0061a4",
+                        "background": "#fcf9f8",
+                        "tertiary-fixed": "#ffdf9e",
+                        "surface-bright": "#fcf9f8",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#404752",
+                        "tertiary-fixed-dim": "#fabd00",
+                        "on-secondary-container": "#00731e",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#bfc7d4",
+                        "primary-container": "#2196f3",
+                        "outline": "#707883",
+                        "surface-dim": "#dcd9d9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom styles for accessibility toggle */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #0061a4;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #0061a4;
+        }
+        
+        /* High contrast mode placeholder (simulated via class) */
+        .high-contrast-active {
+            --tw-bg-opacity: 1;
+            background-color: #000000;
+            color: #ffffff;
+        }
+        .high-contrast-active * {
+            border-color: #ffffff !important;
+        }
+        .high-contrast-active .text-on-surface,
+        .high-contrast-active .text-on-surface-variant {
+            color: #ffffff !important;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- TopAppBar (Mobile) -->
+<header class="md:hidden flex justify-between items-center w-full px-4 py-2 z-50 backdrop-blur-xl bg-surface/80 dark:bg-surface-dim/80 shadow-sm docked full-width top-0 sticky">
+<button aria-label="Menu" class="flex items-center justify-center p-2 rounded-full hover:bg-primary-container/20 dark:hover:bg-primary-fixed-dim/10 transition-colors">
+<span aria-hidden="true" class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" data-icon="visibility">visibility</span>
+</button>
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">EyeGuard AI</span>
+<button aria-label="Profile" class="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden hover:bg-primary-container/20 dark:hover:bg-primary-fixed-dim/10 transition-colors">
+<img alt="User Avatar" class="object-cover w-full h-full" data-alt="A small, professional headshot of a clinical user wearing glasses in a brightly lit modern medical environment, used as a circular avatar profile picture. High-key lighting, clean aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARhmJ8EeLlUUphJam1zA2ZPbeuUdwRzyAdIMvJOb2gY6VIui9vF7M-ArpDSV2iZV2-dFfz7iCkQ9IjaBR63t8YQjNs5vNd8H2CgxNNTTbKc31gqS6wlcXnFwGkk5ywJ9fpwD9KClOFCosz_PxlXU-nAsfxH_U1s04fwtWkHXbHnappzvyjd5i8Jc6wVxd-dJBOzAhHQz6HkGQQ4Y8hr1tCmlw9s2Py9IA0FQMoIdfdWwx5t6QJG_Upec79vSxuGDYdIv_3B8gGBGM"/>
+</button>
+</header>
+<!-- SideNav (Desktop) -->
+<nav aria-label="Main Navigation" class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[60] p-6 bg-surface dark:bg-surface-dim shadow-xl w-80 rounded-r-2xl">
+<div class="mb-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary">
+<img alt="Patient Portrait" class="object-cover w-full h-full" data-alt="A professional headshot of a clinical user wearing glasses in a brightly lit modern medical environment, used as a circular avatar profile picture. High-key lighting, clean aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwqnzhXCffQvRpXGArnGDr9V7L8kYfrMyDHqfWD1zBVyvIiXB67snndQelNxGTnahV41v8MRutmfiHoP4gYdoBQRinfyhAsCPiKLdT0CbpTrQ-yErJEmi1UMAr5QaSM-JXtwPbZ-n1fmI-zh6mz_Cv1h6VBWpqW7EehwWe3lTufSgeTd6ZyfruAF58XkNtFNlBHSFbzRyEoHrz3Gu-u-Xp5SCbn21soywrOQHgRlCz-2X3_YMh8AQu5n4Cbd98Lwo-z3BAu7ir4YM"/>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary">Clinical User</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">ID: EG-88219</p>
+<span class="text-xs text-secondary font-semibold">Active Status</span>
+</div>
+</div>
+<ul class="flex flex-col gap-2">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-label-md text-label-md">Clinics</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span class="font-label-md text-label-md">Emergency Support</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+<span class="font-label-md text-label-md">Legal</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-80 pb-24 md:pb-8 pt-4 px-margin-mobile md:px-margin-desktop w-full max-w-container-max mx-auto">
+<header class="mb-8">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Settings &amp; Accessibility</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage your clinical preferences, notification alerts, and accessibility configurations.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Primary Settings -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Profile Section -->
+<section aria-labelledby="profile-heading" class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-surface-container-high">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2" id="profile-heading">
+<span aria-hidden="true" class="material-symbols-outlined text-primary" data-icon="person">person</span>
+                        Profile
+                    </h2>
+<div class="flex flex-col sm:flex-row gap-6 items-start">
+<div class="w-24 h-24 rounded-full overflow-hidden border-4 border-surface-container shrink-0 relative group cursor-pointer">
+<img alt="User Avatar" class="object-cover w-full h-full" data-alt="A professional headshot of a clinical user wearing glasses in a brightly lit modern medical environment. High-key lighting, clean aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyrBUbIoy57zvtHuCPKPu4wupugFcXYN808id8R_vasXhFuceKLqUGLp3s24IbNlRxMcLOBAVDvjFMgiPgQ7Il35ELPVcT3hVQ-YJgrd9-8twBJaWDBvxmHbYo4tzE8gG9FQxaxS0eJv89hvAGQBU4XhyNLHWoaEjXd6pb992nijXdqswBBXy_9nR1b3PSN30GlDfqTmr7bH7kWSPhe2gj8A2093uDl35AT34VFb3R3A888xRxX_hJuE_S78uDv8t-ZVK0p78Uq38"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white" data-icon="edit">edit</span>
+</div>
+</div>
+<div class="flex-1 w-full space-y-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1" for="fullName">Full Name</label>
+<input aria-describedby="fullNameHelp" class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-2 font-body-md text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" id="fullName" type="text" value="Dr. Sarah Jenkins"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1" for="email">Clinical Email</label>
+<input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-2 font-body-md text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" id="email" type="email" value="s.jenkins@eyeguard.ai"/>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-6 py-2 rounded-full hover:bg-primary/90 transition-colors mt-2">
+                                Save Changes
+                            </button>
+</div>
+</div>
+</section>
+<!-- Notifications Section -->
+<section aria-labelledby="notifications-heading" class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-surface-container-high">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2" id="notifications-heading">
+<span aria-hidden="true" class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+                        Notifications
+                    </h2>
+<ul class="space-y-4">
+<li class="flex items-center justify-between py-2 border-b border-surface-container">
+<div>
+<p class="font-label-md text-label-md text-on-surface">Diagnostic Alerts</p>
+<p class="font-body-md text-sm text-on-surface-variant">Immediate push notifications for high-risk scans.</p>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer checked:right-0 checked:border-primary" id="toggle1" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="toggle1"></label>
+</div>
+</li>
+<li class="flex items-center justify-between py-2 border-b border-surface-container">
+<div>
+<p class="font-label-md text-label-md text-on-surface">Weekly Reports</p>
+<p class="font-body-md text-sm text-on-surface-variant">Summary of patient diagnostics via email.</p>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer checked:right-0 checked:border-primary" id="toggle2" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="toggle2"></label>
+</div>
+</li>
+</ul>
+</section>
+<!-- Security Section -->
+<section aria-labelledby="security-heading" class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-surface-container-high">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2" id="security-heading">
+<span aria-hidden="true" class="material-symbols-outlined text-primary" data-icon="security">security</span>
+                        Security
+                    </h2>
+<div class="space-y-4">
+<div class="flex items-center justify-between py-3 border-b border-surface-container">
+<div>
+<p class="font-label-md text-label-md text-on-surface">Two-Factor Authentication (2FA)</p>
+<p class="font-body-md text-sm text-on-surface-variant">Secure your clinical data with an extra layer of protection.</p>
+</div>
+<button class="bg-secondary-container text-on-secondary-container font-label-md text-label-md px-4 py-1.5 rounded-full hover:bg-secondary-fixed-dim transition-colors text-sm">
+                                Enabled
+                            </button>
+</div>
+<div class="pt-2">
+<button class="text-primary font-label-md text-label-md hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="key">key</span>
+                                 Change Password
+                             </button>
+</div>
+</div>
+</section>
+<!-- Privacy & Data -->
+<section aria-labelledby="privacy-heading" class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-surface-container-high">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2" id="privacy-heading">
+<span aria-hidden="true" class="material-symbols-outlined text-primary" data-icon="shield">shield</span>
+                        Privacy &amp; Data Settings
+                    </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Manage how your clinical data is used for AI model training and diagnostics improvement.</p>
+<div class="bg-surface-container-low p-4 rounded-lg border border-surface-variant flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5" data-icon="info">info</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Data Anonymization</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">All patient scans are strictly anonymized before being processed by the central diagnostic engine, in compliance with HIPAA and GDPR.</p>
+</div>
+</div>
+<button class="mt-4 border border-outline text-on-surface font-label-md text-label-md px-4 py-2 rounded-lg hover:bg-surface-container transition-colors">
+                         Review Privacy Policy
+                     </button>
+</section>
+</div>
+<!-- Right Column: Accessibility & Preferences -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Accessibility Section (Bento Card) -->
+<section aria-labelledby="accessibility-heading" class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-primary/20 bg-gradient-to-b from-surface-container-lowest to-primary-fixed/10">
+<div class="flex items-center gap-2 mb-6">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white">
+<span aria-hidden="true" class="material-symbols-outlined" data-icon="accessibility_new">accessibility_new</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface" id="accessibility-heading">Accessibility</h2>
+</div>
+<div class="space-y-6">
+<!-- High Contrast Toggle -->
+<div class="flex items-center justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface">High Contrast Mode</p>
+<p class="font-body-md text-xs text-on-surface-variant mt-1">Enhance readability for clinical data</p>
+</div>
+<div class="relative inline-block w-12 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer checked:right-0 checked:border-primary" id="contrastToggle" name="contrastToggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="contrastToggle"></label>
+</div>
+</div>
+<!-- Screen Reader -->
+<div class="flex items-center justify-between border-t border-surface-container pt-4">
+<div>
+<p class="font-label-md text-label-md text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="volume_up">volume_up</span>
+                                    Screen Reader Support
+                                </p>
+</div>
+<div class="relative inline-block w-12 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer checked:right-0 checked:border-primary" id="readerToggle" name="readerToggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="readerToggle"></label>
+</div>
+</div>
+<!-- Font Size Slider -->
+<div class="border-t border-surface-container pt-4">
+<label class="flex justify-between font-label-md text-label-md text-on-surface mb-2" for="fontSize">
+<span>Text Size</span>
+<span class="text-primary" id="fontSizeValue">Standard</span>
+</label>
+<input aria-valuemax="3" aria-valuemin="1" aria-valuenow="2" aria-valuetext="Standard text size" class="w-full h-2 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary" id="fontSize" max="3" min="1" name="fontSize" type="range" value="2"/>
+<div class="flex justify-between text-xs text-on-surface-variant mt-1 px-1">
+<span>A</span>
+<span class="text-base">A</span>
+<span class="text-lg">A</span>
+</div>
+</div>
+<!-- Voice Assistant -->
+<div class="border-t border-surface-container pt-4">
+<label class="block font-label-md text-label-md text-on-surface mb-2 flex items-center gap-1" for="voiceSelect">
+<span class="material-symbols-outlined text-sm" data-icon="record_voice_over">record_voice_over</span>
+                                Voice Assistant Voice
+                            </label>
+<div class="relative">
+<select class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-2 font-body-md text-body-md text-on-surface appearance-none focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="voiceSelect">
+<option value="clinician_f">Clinical Default (Female)</option>
+<option value="clinician_m">Clinical Clear (Male)</option>
+<option value="calm">Calm &amp; Soothing</option>
+<option value="high_clarity">High Clarity (Dictation)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Language Selection -->
+<section aria-labelledby="language-heading" class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-surface-container-high">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2" id="language-heading">
+<span aria-hidden="true" class="material-symbols-outlined text-primary" data-icon="language">language</span>
+                        Language / اللغة
+                    </h2>
+<div class="grid grid-cols-2 gap-3">
+<label class="relative cursor-pointer">
+<input checked="" class="peer sr-only" name="language" type="radio" value="en"/>
+<div class="px-4 py-3 rounded-lg border-2 border-outline-variant peer-checked:border-primary peer-checked:bg-primary-fixed/20 transition-all text-center">
+<span class="font-label-md text-label-md text-on-surface block">English</span>
+</div>
+</label>
+<label class="relative cursor-pointer">
+<input class="peer sr-only" name="language" type="radio" value="ar"/>
+<div class="px-4 py-3 rounded-lg border-2 border-outline-variant peer-checked:border-primary peer-checked:bg-primary-fixed/20 transition-all text-center" dir="rtl">
+<span class="font-label-md text-label-md text-on-surface block font-serif">العربية</span>
+</div>
+</label>
+</div>
+<p class="font-body-md text-xs text-on-surface-variant mt-3 text-center">Requires app restart to fully apply.</p>
+</section>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav aria-label="Mobile Navigation" class="md:hidden bg-surface-container-highest/90 dark:bg-surface-container-lowest/90 backdrop-blur-2xl shadow-[0_-4px_12px_rgba(0,0,0,0.05)] docked full-width bottom-0 rounded-t-xl fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe">
+<a aria-label="Dashboard" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm text-label-sm mt-1">Dashboard</span>
+</a>
+<a aria-label="Scan" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="center_focus_strong">center_focus_strong</span>
+<span class="font-label-sm text-label-sm mt-1">Scan</span>
+</a>
+<a aria-label="Schedule" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-label-sm text-label-sm mt-1">Schedule</span>
+</a>
+<a aria-label="History" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="show_chart">show_chart</span>
+<span class="font-label-sm text-label-sm mt-1">History</span>
+</a>
+<a aria-current="page" aria-label="Settings" class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary-fixed-dim text-on-secondary-container dark:text-on-secondary-fixed-variant rounded-full px-4 py-1.5 Active: -translate-y-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-sm text-label-sm mt-1">Settings</span>
+</a>
+</nav>
+<script>
+        // Simple script to handle slider text update visually
+        const fontSizeSlider = document.getElementById('fontSize');
+        const fontSizeValue = document.getElementById('fontSizeValue');
+        
+        if(fontSizeSlider && fontSizeValue) {
+            fontSizeSlider.addEventListener('input', (e) => {
+                const val = e.target.value;
+                if(val === '1') fontSizeValue.textContent = 'Small';
+                else if(val === '2') fontSizeValue.textContent = 'Standard';
+                else if(val === '3') fontSizeValue.textContent = 'Large';
+            });
+        }
+    </script>
+</body></html>

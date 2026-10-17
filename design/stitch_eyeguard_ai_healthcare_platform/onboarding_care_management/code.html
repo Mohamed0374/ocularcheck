@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EyeGuard AI - Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#94f990",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#002c4f",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#005313",
+                        "on-primary-fixed-variant": "#00497d",
+                        "primary": "#0061a4",
+                        "on-background": "#1b1c1c",
+                        "surface-container-low": "#f6f3f2",
+                        "on-tertiary-container": "#392900",
+                        "inverse-surface": "#303030",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#b98b00",
+                        "surface-variant": "#e5e2e1",
+                        "on-tertiary-fixed": "#261a00",
+                        "secondary-container": "#91f78e",
+                        "secondary-fixed-dim": "#78dc77",
+                        "secondary": "#006e1c",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "surface-container-high": "#eae7e7",
+                        "inverse-primary": "#9ecaff",
+                        "primary-fixed-dim": "#9ecaff",
+                        "on-secondary-fixed": "#002204",
+                        "on-primary-fixed": "#001d36",
+                        "surface-container": "#f0eded",
+                        "inverse-on-surface": "#f3f0ef",
+                        "primary-fixed": "#d1e4ff",
+                        "on-surface": "#1b1c1c",
+                        "tertiary": "#785900",
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-tint": "#0061a4",
+                        "background": "#fcf9f8",
+                        "tertiary-fixed": "#ffdf9e",
+                        "surface-bright": "#fcf9f8",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#404752",
+                        "tertiary-fixed-dim": "#fabd00",
+                        "on-secondary-container": "#00731e",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#bfc7d4",
+                        "primary-container": "#2196f3",
+                        "outline": "#707883",
+                        "surface-dim": "#dcd9d9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- Main Canvas: Suppressed Navigation for Linear Onboarding -->
+<main class="flex-grow flex flex-col items-center justify-center p-margin-mobile md:p-margin-desktop relative overflow-hidden">
+<!-- Decorative Background Elements for Depth -->
+<div class="absolute inset-0 z-0 pointer-events-none opacity-40">
+<div class="absolute top-[-10%] right-[-10%] w-96 h-96 bg-primary-container rounded-full mix-blend-multiply filter blur-[100px] opacity-30 animate-pulse"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-secondary-container rounded-full mix-blend-multiply filter blur-[120px] opacity-20"></div>
+</div>
+<div class="z-10 w-full max-w-md mx-auto flex flex-col h-[795px] md:h-auto md:min-h-[600px] glass-panel rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] p-6 md:p-10 relative">
+<!-- Skip Button (Optional for final step, but good practice) -->
+<div class="absolute top-6 right-6">
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">
+                    Skip
+                </button>
+</div>
+<!-- Illustration Container (Bento style graphic area) -->
+<div class="flex-grow flex items-center justify-center mb-8 relative">
+<!-- Abstract Medical Graphic representing Calendar & Video Call -->
+<div class="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
+<!-- Base Shape -->
+<div class="absolute inset-0 bg-surface-container-low rounded-full shadow-inner flex items-center justify-center border border-surface-variant"></div>
+<!-- Calendar Element -->
+<div class="absolute w-40 h-48 bg-surface-container-lowest rounded-2xl shadow-lg border border-surface-variant transform -rotate-6 flex flex-col overflow-hidden z-10 transition-transform hover:rotate-0 duration-500">
+<div class="h-10 bg-primary flex items-center justify-center">
+<span class="font-label-sm text-label-sm text-on-primary uppercase tracking-widest">Appointments</span>
+</div>
+<div class="flex-grow p-4 grid grid-cols-3 gap-2 opacity-50">
+<div class="h-2 rounded bg-surface-variant w-full"></div>
+<div class="h-2 rounded bg-surface-variant w-full"></div>
+<div class="h-2 rounded bg-surface-variant w-full"></div>
+<div class="h-2 rounded bg-primary-container w-full"></div>
+<div class="h-2 rounded bg-surface-variant w-full"></div>
+<div class="h-2 rounded bg-surface-variant w-full"></div>
+</div>
+</div>
+<!-- Video Call Element -->
+<div class="absolute w-28 h-36 bg-surface-container-lowest rounded-xl shadow-xl border border-surface-variant transform translate-x-16 translate-y-12 flex flex-col overflow-hidden z-20 backdrop-blur-md bg-opacity-80">
+<div class="flex-grow bg-surface-variant flex items-center justify-center relative">
+<!-- Placeholder for Doctor Avatar -->
+<span class="material-symbols-outlined text-4xl text-outline opacity-50" data-weight="fill" style="font-variation-settings: 'FILL' 1;">person</span>
+<!-- Video overlay icons -->
+<div class="absolute bottom-2 left-0 right-0 flex justify-center gap-2">
+<div class="w-6 h-6 rounded-full bg-error flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[12px] text-on-error" data-weight="fill" style="font-variation-settings: 'FILL' 1;">mic_off</span>
+</div>
+<div class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[12px] text-on-surface" data-weight="fill" style="font-variation-settings: 'FILL' 1;">videocam</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Medication Element (Floating Chip) -->
+<div class="absolute top-10 right-4 bg-secondary-container px-4 py-2 rounded-full shadow-md z-30 flex items-center gap-2 animate-bounce" style="animation-duration: 3s;">
+<span class="material-symbols-outlined text-on-secondary-container text-sm" data-weight="fill" style="font-variation-settings: 'FILL' 1;">medication</span>
+<span class="font-label-sm text-label-sm text-on-secondary-container">Reminder</span>
+</div>
+</div>
+</div>
+<!-- Text Content -->
+<div class="text-center mb-10">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary mb-4">Complete Eye Care</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant px-4">Schedule appointments and never miss a medication.</p>
+</div>
+<!-- Bottom Action Area -->
+<div class="mt-auto flex flex-col items-center gap-8">
+<!-- Progress Dots -->
+<div aria-label="Onboarding step 3 of 3" class="flex gap-2" role="progressbar">
+<div class="w-2 h-2 rounded-full bg-surface-variant transition-colors duration-300"></div>
+<div class="w-2 h-2 rounded-full bg-surface-variant transition-colors duration-300"></div>
+<div class="w-8 h-2 rounded-full bg-primary transition-all duration-300"></div>
+</div>
+<!-- Call to Action -->
+<button class="w-full bg-primary hover:bg-primary-fixed-dim text-on-primary font-label-md text-label-md py-4 rounded-full shadow-md transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 group">
+<span>Get Started</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+</body></html>

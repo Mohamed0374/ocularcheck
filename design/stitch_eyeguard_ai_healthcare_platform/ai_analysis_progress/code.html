@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EyeGuard AI - Processing Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#94f990",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#002c4f",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#005313",
+                        "on-primary-fixed-variant": "#00497d",
+                        "primary": "#0061a4",
+                        "on-background": "#1b1c1c",
+                        "surface-container-low": "#f6f3f2",
+                        "on-tertiary-container": "#392900",
+                        "inverse-surface": "#303030",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#b98b00",
+                        "surface-variant": "#e5e2e1",
+                        "on-tertiary-fixed": "#261a00",
+                        "secondary-container": "#91f78e",
+                        "secondary-fixed-dim": "#78dc77",
+                        "secondary": "#006e1c",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "surface-container-high": "#eae7e7",
+                        "inverse-primary": "#9ecaff",
+                        "primary-fixed-dim": "#9ecaff",
+                        "on-secondary-fixed": "#002204",
+                        "on-primary-fixed": "#001d36",
+                        "surface-container": "#f0eded",
+                        "inverse-on-surface": "#f3f0ef",
+                        "primary-fixed": "#d1e4ff",
+                        "on-surface": "#1b1c1c",
+                        "tertiary": "#785900",
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-tint": "#0061a4",
+                        "background": "#fcf9f8",
+                        "tertiary-fixed": "#ffdf9e",
+                        "surface-bright": "#fcf9f8",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#404752",
+                        "tertiary-fixed-dim": "#fabd00",
+                        "on-secondary-container": "#00731e",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#bfc7d4",
+                        "primary-container": "#2196f3",
+                        "outline": "#707883",
+                        "surface-dim": "#dcd9d9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .scan-line {
+            background: linear-gradient(to bottom, transparent, rgba(0, 97, 164, 0.8), transparent);
+            animation: scan 3s infinite linear;
+        }
+        @keyframes scan {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
+        .pulse-node {
+            animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .5; transform: scale(1.5); }
+        }
+        .progress-fill {
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-hidden">
+<!-- Header / TopAppBar -->
+<header class="docked full-width top-0 sticky backdrop-blur-xl bg-surface/80 dark:bg-surface-dim/80 shadow-sm flex justify-between items-center w-full px-4 py-2 z-50">
+<div class="flex items-center gap-2">
+<button class="text-on-surface-variant dark:text-outline hover:bg-primary-container/20 dark:hover:bg-primary-fixed-dim/10 transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">visibility</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">EyeGuard AI</h1>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A clean, professional portrait of a clinical user, wearing subtle medical scrubs or a lab coat, against a neutral light grey background. Soft, even studio lighting highlights a calm, reassuring expression. The image maintains a high-key, modern medical aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkTewfoa21KRy49F6ri9DCDsOsKUy3_DsPi0em23HJeAt2azosFATbReswaImbV8FXLP4OyDYb_heEWoty0aX42ZcucsYPFcPzoK9-mKywziE_6_96RsrzUVy-LEYtnLyJpyY2gvpqzpSCKaEdnxe5RC9f0U2VpyDQVYEvI3VWs1WTlEo9V6BRzuKSziF57VOqDQ0QcshL9jRgAQoL5dhxglXRANb1nyU9x9V0XA94bQOehWVS7vxzwQBxutheX-Yt6BbcQcUqOQk"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center p-4 md:p-8">
+<div class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+<!-- AI Analysis Visualization (Glassmorphism Card) -->
+<div class="relative bg-surface/50 backdrop-blur-[20px] border border-outline-variant/30 rounded-[24px] p-4 shadow-[0_4px_24px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col items-center justify-center min-h-[400px]">
+<!-- Background Image (Captured Fundus) -->
+<div class="absolute inset-0 w-full h-full p-4">
+<div class="relative w-full h-full rounded-2xl overflow-hidden">
+<img alt="Captured Fundus Image" class="w-full h-full object-cover" data-alt="A high-resolution, detailed medical fundus photograph of a human retina. The image displays a clear view of the optic disc, macula, and blood vessels against the typical orange-red background of the inner eye. The lighting is bright and clinical, suitable for diagnostic analysis, with sharp focus and contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATv_qerHjtUXVtdgPWVJfK5w6Q397HM_cG_jTtJGJJMvSwolvaDmOUHn_XjKWm9N9NzlzurwRa1LGC6kX-ZI-TofbiEiFMbqUxdyWUGlVJfPN2SWyK07bJn807sAqeS8UfAvufafOl28CcCAv_1_X9fQwd_kDqo8cYPnJjQe6Pa4x4BWlEJTDzcOTM6LdzwHrXSCDgu8nX3xNHQUoKRKtfYJEMRaXuLHhHEw5o-U6VSL3A_H4UlsJOCT7JXuQ4RJLkDp4LGmnjsEk"/>
+<!-- Scanning Animation Overlay -->
+<div class="absolute inset-0 pointer-events-none">
+<div class="absolute left-0 right-0 h-[4px] scan-line z-10 shadow-[0_0_8px_rgba(0,97,164,0.8)]"></div>
+<!-- Highlight Nodes -->
+<div class="absolute top-[30%] left-[40%] w-3 h-3 bg-secondary-fixed rounded-full pulse-node z-20 shadow-[0_0_12px_rgba(148,249,144,0.8)]"></div>
+<div class="absolute top-[60%] left-[70%] w-2 h-2 bg-primary rounded-full pulse-node z-20 shadow-[0_0_12px_rgba(0,97,164,0.8)]" style="animation-delay: 0.5s;"></div>
+<div class="absolute top-[45%] left-[25%] w-4 h-4 border-2 border-tertiary-fixed rounded-full pulse-node z-20" style="animation-delay: 1s;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Progress & Status -->
+<div class="flex flex-col gap-8 w-full max-w-md mx-auto">
+<div class="text-center md:text-left">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-2">Analyzing your retina...</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Please wait while our AI processes the captured imagery for diagnostic insights.</p>
+</div>
+<!-- Step Tracker -->
+<div class="flex flex-col gap-4 relative">
+<!-- Connecting Line -->
+<div class="absolute left-[15px] top-4 bottom-4 w-0.5 bg-surface-variant z-0"></div>
+<!-- Steps -->
+<div class="flex items-center gap-4 relative z-10 step-item" data-step="1">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shrink-0 shadow-sm transition-colors duration-300">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Quality Assessment</span>
+<span class="font-label-sm text-label-sm text-secondary">Complete</span>
+</div>
+</div>
+<div class="flex items-center gap-4 relative z-10 step-item" data-step="2">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shrink-0 shadow-sm transition-colors duration-300 animate-pulse">
+<span class="material-symbols-outlined text-[18px] animate-spin">sync</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-bold">Retina Segmentation</span>
+<span class="font-label-sm text-label-sm text-primary">In Progress...</span>
+</div>
+</div>
+<div class="flex items-center gap-4 relative z-10 step-item opacity-50" data-step="3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-outline-variant text-outline flex items-center justify-center shrink-0 transition-colors duration-300">
+<span class="material-symbols-outlined text-[18px]">health_and_safety</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">Disease Detection</span>
+<span class="font-label-sm text-label-sm text-outline">Pending</span>
+</div>
+</div>
+<div class="flex items-center gap-4 relative z-10 step-item opacity-50" data-step="4">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-outline-variant text-outline flex items-center justify-center shrink-0 transition-colors duration-300">
+<span class="material-symbols-outlined text-[18px]">summarize</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">Report Generation</span>
+<span class="font-label-sm text-label-sm text-outline">Pending</span>
+</div>
+</div>
+</div>
+<!-- Overall Progress Bar -->
+<div class="flex flex-col gap-2 mt-4">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Overall Progress</span>
+<span class="font-label-sm text-label-sm text-primary font-bold" id="progress-text">45%</span>
+</div>
+<div class="h-2 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full progress-fill w-[45%]" id="progress-bar"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple script to simulate progress for visual demonstration
+        document.addEventListener('DOMContentLoaded', () => {
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            
+            // In a real app, this would be driven by actual processing status
+            let progress = 45;
+            
+            // Just a visual simulation for the static design
+            setInterval(() => {
+                if (progress < 90) { // Don't go to 100% in a static preview
+                    progress += Math.random() * 5;
+                    if(progress > 90) progress = 90;
+                    progressBar.style.width = `${progress}%`;
+                    progressText.textContent = `${Math.floor(progress)}%`;
+                }
+            }, 2000);
+        });
+    </script>
+</body></html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EyeGuard AI - Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#94f990",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#002c4f",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#005313",
+                    "on-primary-fixed-variant": "#00497d",
+                    "primary": "#0061a4",
+                    "on-background": "#1b1c1c",
+                    "surface-container-low": "#f6f3f2",
+                    "on-tertiary-container": "#392900",
+                    "inverse-surface": "#303030",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#b98b00",
+                    "surface-variant": "#e5e2e1",
+                    "on-tertiary-fixed": "#261a00",
+                    "secondary-container": "#91f78e",
+                    "secondary-fixed-dim": "#78dc77",
+                    "secondary": "#006e1c",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "surface": "#fcf9f8",
+                    "surface-container-high": "#eae7e7",
+                    "inverse-primary": "#9ecaff",
+                    "primary-fixed-dim": "#9ecaff",
+                    "on-secondary-fixed": "#002204",
+                    "on-primary-fixed": "#001d36",
+                    "surface-container": "#f0eded",
+                    "inverse-on-surface": "#f3f0ef",
+                    "primary-fixed": "#d1e4ff",
+                    "on-surface": "#1b1c1c",
+                    "tertiary": "#785900",
+                    "surface-container-highest": "#e5e2e1",
+                    "surface-tint": "#0061a4",
+                    "background": "#fcf9f8",
+                    "tertiary-fixed": "#ffdf9e",
+                    "surface-bright": "#fcf9f8",
+                    "error": "#ba1a1a",
+                    "on-surface-variant": "#404752",
+                    "tertiary-fixed-dim": "#fabd00",
+                    "on-secondary-container": "#00731e",
+                    "on-tertiary-fixed-variant": "#5b4300",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#bfc7d4",
+                    "primary-container": "#2196f3",
+                    "outline": "#707883",
+                    "surface-dim": "#dcd9d9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "base": "8px",
+                    "margin-desktop": "64px"
+            },
+            "fontFamily": {
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "headline-lg": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Inter"
+                    ],
+                    "headline-lg-mobile": [
+                            "Inter"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "26px",
+                            {
+                                    "lineHeight": "32px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-primary-container), transparent);
+            box-shadow: 0 0 10px var(--color-primary-container), 0 0 20px var(--color-primary-container);
+            animation: scan 3s infinite linear;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        @keyframes scan {
+            0% { top: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        .pulse-node {
+            animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(33, 150, 243, 0); }
+            100% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(33, 150, 243, 0); }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col font-body-md overflow-hidden relative selection:bg-primary-container/30">
+<!-- Ambient Background Gradients -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+<div class="absolute top-[-10%] right-[-5%] w-[60vw] h-[60vw] rounded-full bg-primary-fixed-dim/20 blur-[100px] opacity-70 mix-blend-multiply"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-secondary-container/20 blur-[100px] opacity-60 mix-blend-multiply"></div>
+</div>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center p-margin-mobile md:p-margin-desktop relative z-10 container mx-auto max-w-container-max h-screen">
+<!-- Onboarding Container -->
+<div class="w-full max-w-lg mx-auto flex flex-col h-full md:h-auto md:glass-panel md:rounded-2xl md:shadow-xl md:p-8">
+<!-- Skip Button (Top Right) -->
+<div class="flex justify-end w-full pt-4 md:pt-0 pb-8">
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-2 px-4 rounded-full hover:bg-surface-container-low">
+                    Skip
+                </button>
+</div>
+<!-- Illustration Area -->
+<div class="relative w-full aspect-square md:aspect-video rounded-2xl overflow-hidden mb-8 shadow-sm group">
+<!-- Fallback/Base Medical Illustration -->
+<img class="w-full h-full object-cover rounded-2xl transition-transform duration-700 group-hover:scale-105" data-alt="A high-quality, clinical 3D medical illustration of a human eye cross-section and retina. The style is Corporate Modern and high-tech, focusing on clarity and clinical excellence. The lighting is soft and pristine, illuminating the biological structures with precision. The color palette features a sterile white background with deep blues and subtle energetic cyan accents highlighting the retinal pathways. The overall mood is one of scientific innovation, safety, and advanced medical diagnostics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7xfPdlfqrByQHeSx0hRcNCZQ5azMFNV_peDXu2NcZRcQNTv0Zw4xK7ms-IihjfSwrjCcDvSYFhEcwnGd-zafYuOwjsXko4Ax_9cJliAfKfJR13OB3S7zHn79WUfvRdSf2iza5DlYBqRMa-1k7-bieBdSqn8iRapnzch6SlEtbkcwBOG2HWFXw417cz2iFEJcoMFzadClTdKFG05dcSYYiIQ9SkkAe-0WAI7mM_tUlZeMQhNrK8clY19Y14mrc-jWfFhEXAAvBpjY"/>
+<!-- AI Overlay Elements -->
+<div class="absolute inset-0 z-10 pointer-events-none">
+<div class="scan-line"></div>
+<!-- Neural Nodes -->
+<div class="absolute top-[30%] left-[40%] w-3 h-3 bg-primary-container rounded-full pulse-node"></div>
+<div class="absolute top-[45%] left-[60%] w-2 h-2 bg-secondary rounded-full pulse-node" style="animation-delay: 0.5s;"></div>
+<div class="absolute top-[60%] left-[35%] w-2.5 h-2.5 bg-primary-container rounded-full pulse-node" style="animation-delay: 1.2s;"></div>
+<div class="absolute top-[25%] left-[65%] w-1.5 h-1.5 bg-secondary rounded-full pulse-node" style="animation-delay: 0.8s;"></div>
+<!-- Bounding Box -->
+<div class="absolute top-[40%] left-[45%] w-[30%] h-[30%] border border-primary-container/60 rounded-sm bg-primary-container/10 flex items-start p-1">
+<span class="font-label-sm text-[10px] text-primary-container bg-surface/80 px-1 rounded-sm backdrop-blur-sm">Anomaly 98%</span>
+</div>
+<!-- Connecting Lines (SVG) -->
+<svg class="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+<path class="opacity-50" d="M40% 30% L45% 40%" fill="none" stroke="rgba(33, 150, 243, 0.4)" stroke-dasharray="2,2" stroke-width="1"></path>
+<path class="opacity-50" d="M60% 45% L65% 25%" fill="none" stroke="rgba(0, 110, 28, 0.4)" stroke-dasharray="2,2" stroke-width="1"></path>
+</svg>
+</div>
+<!-- Glassmorphism Status Chip -->
+<div class="absolute bottom-4 left-4 glass-panel px-3 py-1.5 rounded-full flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-sm text-label-sm text-on-surface">Analysis Active</span>
+</div>
+</div>
+<!-- Typography Content -->
+<div class="flex flex-col flex-grow text-center px-4">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4">
+                    AI-Powered Vision Analysis
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-sm mx-auto">
+                    Early detection for Diabetic Retinopathy, Glaucoma, and more.
+                </p>
+</div>
+<!-- Navigation Controls -->
+<div class="w-full flex items-center justify-between mt-auto pt-8 pb-4">
+<!-- Progress Dots -->
+<div class="flex gap-2 items-center">
+<div class="w-8 h-2 bg-primary rounded-full transition-all duration-300"></div>
+<div class="w-2 h-2 bg-surface-variant rounded-full transition-all duration-300"></div>
+<div class="w-2 h-2 bg-surface-variant rounded-full transition-all duration-300"></div>
+</div>
+<!-- Next Button -->
+<button class="bg-primary text-on-primary font-label-md text-label-md py-3 px-8 rounded-full shadow-sm hover:shadow-md hover:bg-surface-tint transition-all active:scale-95 flex items-center gap-2">
+                    Next
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+</body></html>

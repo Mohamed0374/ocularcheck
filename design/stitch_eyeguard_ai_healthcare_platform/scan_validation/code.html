@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scan Validation - EyeGuard AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "secondary-fixed": "#94f990",
+                            "surface-container-lowest": "#ffffff",
+                            "on-primary-container": "#002c4f",
+                            "on-tertiary": "#ffffff",
+                            "on-secondary-fixed-variant": "#005313",
+                            "on-primary-fixed-variant": "#00497d",
+                            "primary": "#0061a4",
+                            "on-background": "#1b1c1c",
+                            "surface-container-low": "#f6f3f2",
+                            "on-tertiary-container": "#392900",
+                            "inverse-surface": "#303030",
+                            "error-container": "#ffdad6",
+                            "on-error": "#ffffff",
+                            "tertiary-container": "#b98b00",
+                            "surface-variant": "#e5e2e1",
+                            "on-tertiary-fixed": "#261a00",
+                            "secondary-container": "#91f78e",
+                            "secondary-fixed-dim": "#78dc77",
+                            "secondary": "#006e1c",
+                            "on-error-container": "#93000a",
+                            "on-primary": "#ffffff",
+                            "surface": "#fcf9f8",
+                            "surface-container-high": "#eae7e7",
+                            "inverse-primary": "#9ecaff",
+                            "primary-fixed-dim": "#9ecaff",
+                            "on-secondary-fixed": "#002204",
+                            "on-primary-fixed": "#001d36",
+                            "surface-container": "#f0eded",
+                            "inverse-on-surface": "#f3f0ef",
+                            "primary-fixed": "#d1e4ff",
+                            "on-surface": "#1b1c1c",
+                            "tertiary": "#785900",
+                            "surface-container-highest": "#e5e2e1",
+                            "surface-tint": "#0061a4",
+                            "background": "#fcf9f8",
+                            "tertiary-fixed": "#ffdf9e",
+                            "surface-bright": "#fcf9f8",
+                            "error": "#ba1a1a",
+                            "on-surface-variant": "#404752",
+                            "tertiary-fixed-dim": "#fabd00",
+                            "on-secondary-container": "#00731e",
+                            "on-tertiary-fixed-variant": "#5b4300",
+                            "on-secondary": "#ffffff",
+                            "outline-variant": "#bfc7d4",
+                            "primary-container": "#2196f3",
+                            "outline": "#707883",
+                            "surface-dim": "#dcd9d9"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "container-max": "1280px",
+                            "margin-mobile": "16px",
+                            "gutter": "24px",
+                            "base": "8px",
+                            "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                            "body-md": [
+                                    "Inter"
+                            ],
+                            "headline-lg": [
+                                    "Inter"
+                            ],
+                            "headline-md": [
+                                    "Inter"
+                            ],
+                            "headline-lg-mobile": [
+                                    "Inter"
+                            ],
+                            "body-lg": [
+                                    "Inter"
+                            ],
+                            "label-md": [
+                                    "Inter"
+                            ],
+                            "label-sm": [
+                                    "Inter"
+                            ]
+                    },
+                    "fontSize": {
+                            "body-md": [
+                                    "16px",
+                                    {
+                                            "lineHeight": "24px",
+                                            "fontWeight": "400"
+                                    }
+                            ],
+                            "headline-lg": [
+                                    "32px",
+                                    {
+                                            "lineHeight": "40px",
+                                            "letterSpacing": "-0.02em",
+                                            "fontWeight": "700"
+                                    }
+                            ],
+                            "headline-md": [
+                                    "24px",
+                                    {
+                                            "lineHeight": "32px",
+                                            "fontWeight": "600"
+                                    }
+                            ],
+                            "headline-lg-mobile": [
+                                    "26px",
+                                    {
+                                            "lineHeight": "32px",
+                                            "letterSpacing": "-0.01em",
+                                            "fontWeight": "700"
+                                    }
+                            ],
+                            "body-lg": [
+                                    "18px",
+                                    {
+                                            "lineHeight": "28px",
+                                            "fontWeight": "400"
+                                    }
+                            ],
+                            "label-md": [
+                                    "14px",
+                                    {
+                                            "lineHeight": "20px",
+                                            "letterSpacing": "0.01em",
+                                            "fontWeight": "500"
+                                    }
+                            ],
+                            "label-sm": [
+                                    "12px",
+                                    {
+                                            "lineHeight": "16px",
+                                            "fontWeight": "600"
+                                    }
+                            ]
+                    }
+            },
+                },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- TopAppBar for Mobile -->
+<header class="md:hidden flex justify-between items-center w-full px-4 py-2 z-50 docked full-width top-0 sticky backdrop-blur-xl bg-surface/80 shadow-sm">
+<button aria-label="Back" class="text-on-surface-variant hover:bg-primary-container/20 transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="font-headline-md text-headline-md font-bold text-primary">EyeGuard AI</div>
+<button aria-label="User Profile" class="text-on-surface-variant hover:bg-primary-container/20 transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</header>
+<!-- Side Navigation Drawer for Desktop -->
+<nav class="hidden md:flex fixed left-0 top-0 h-full z-[60] flex-col p-6 bg-surface shadow-xl h-full w-80 rounded-r-2xl">
+<div class="flex items-center gap-4 mb-8">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container overflow-hidden">
+<img alt="Patient Portrait" class="w-full h-full object-cover" data-alt="A professional headshot of a clinical user, wearing medical scrubs, set against a clean, modern clinic background with soft white lighting. Corporate modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM0bWwpWBqpjaQs3O1vAAZAy1WJR2GeQf4lG31DPwp8uFfP4A6MvUBZvlWOqGb6MX_umNbc6I7gbd9v15a2DbjSnAQhyJR4nD9oZvVd4IoS38lsV8_eehGhQDTpar-KfHmkWs-8ighboeJx1yNyyAAHdl6L51V2c9gODn7WpPZNTiuc-COtjFMiXn-7Jf6Ikhj6W6gvU9lFtX4tfx9fr6urRYbQCMfiJINY-__59yVk3RLKTgNxn5x7dpcSkcY05COrgqUUWuSBbo"/>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary">Clinical User</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">ID: EG-88219</p>
+<p class="font-label-sm text-label-sm text-secondary">Active Status</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 mt-4 flex-1">
+<a class="flex items-center gap-4 p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-label-md text-label-md">Clinics</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span class="font-label-md text-label-md">Emergency Support</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+<span class="font-label-md text-label-md">Legal</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-lg bg-secondary-container text-on-secondary-container font-bold hover:bg-surface-container-high transition-colors mt-auto" href="#">
+<span class="material-symbols-outlined icon-fill" data-icon="center_focus_strong">center_focus_strong</span>
+<span class="font-label-md text-label-md">Active Scan Validation</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-80 p-margin-mobile md:p-margin-desktop max-w-container-max mx-auto w-full pb-24 md:pb-margin-desktop">
+<!-- Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+<div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Scan Validation</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Patient: John Doe • Scan Date: Oct 24, 2023</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-outline text-on-surface hover:bg-surface-container-low transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                    Previous Scans
+                </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Imaging Section (Spans 8 columns on large screens) -->
+<div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Original Fundus -->
+<div class="bg-surface-container-lowest rounded-[24px] p-4 shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-surface-variant flex flex-col">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">Original Fundus</h3>
+<button aria-label="Expand" class="p-2 rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="zoom_in">zoom_in</span>
+</button>
+</div>
+<div class="relative w-full aspect-square rounded-xl overflow-hidden bg-black">
+<img alt="Original Fundus Image" class="w-full h-full object-contain" data-alt="A high-resolution, clear medical fundus image of a human eye showing the retina, optic disc, and macula. The image is circular against a black background, typical of clinical optical coherence tomography or fundus photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW8-MxA7DFWM_ZpWRboC8Pw-F4A8WeHRdGd-uPNgt0b2xHStP2TzerKINkvXDORMDggVvPu0qntu4VEn7Zvl9xQyu4Qs640GL_Y5E2gY8LyZiWGM5QROJjldlUZHIjoW7Jca0jYQFMC9HFmIPmY4vcimdjBbiuvIJhEgmiK04m1Ntm2B7oy38vq3DzNgZiVqe1Y9ugps7H3Rvp5_ym6ejv2juuFN6UvgCkM0RXUGJdSdVB-FJLz2-ejemheoFv0v7lPLsP7QPSbHs"/>
+</div>
+</div>
+<!-- AI Segmentation -->
+<div class="bg-surface-container-lowest rounded-[24px] p-4 shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-surface-variant flex flex-col relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/5 backdrop-blur-[2px] z-0"></div>
+<div class="flex justify-between items-center mb-4 relative z-10">
+<h3 class="font-headline-md text-headline-md text-on-surface">AI Heatmap</h3>
+<div class="flex items-center gap-2">
+<span class="px-2 py-1 bg-primary-container/20 text-primary font-label-sm text-label-sm rounded-md">Overlay Active</span>
+<button aria-label="Toggle Overlay" class="p-2 rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="layers">layers</span>
+</button>
+</div>
+</div>
+<div class="relative w-full aspect-square rounded-xl overflow-hidden bg-black z-10">
+<img alt="AI Heatmap Overlay" class="w-full h-full object-contain opacity-80" data-alt="The same medical fundus image but overlaid with a vivid, highly detailed thermal heatmap. Bright red, orange, and yellow spots highlight areas of clinical concern around the optic disc, contrasting with the dark background. Modern medical software visualization." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJlni2SZDZfF7P5A7eg1D_H8_E7D4jniMNhmGufeWko5YbSk7pSXSo1eo04FR_dB-mZ8M4FilTMTmV6XQjULkY-fiHcajZeJKXzWp8zlzBtvJ9Htvv3Bqce0AnkKAV-rx5FbSgNmzG4Umd_lRPokq4u25AkaTeieYZLi36nXV6xCddd1grKLIddCUG60YHF3XN1FtaFrbZbK_5nMMBUuz4Eq2zPpjbuJ6OF5ND1a-Ee4OoLUi3ThNI9uQxL_w1SrG_2mHBraBLUwA"/>
+</div>
+</div>
+</div>
+<!-- Diagnostics & Controls (Spans 4 columns on large screens) -->
+<div class="lg:col-span-4 flex flex-col gap-4">
+<!-- Diagnosis Card -->
+<div class="bg-surface-container-lowest rounded-[24px] p-6 shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-surface-variant">
+<div class="flex items-center gap-3 mb-6">
+<div class="p-2 rounded-lg bg-error-container text-on-error-container">
+<span class="material-symbols-outlined icon-fill" data-icon="warning">warning</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">AI Diagnosis</h2>
+</div>
+<div class="mb-6">
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Primary Finding</p>
+<p class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-error">Glaucoma</p>
+</div>
+<div class="mb-6">
+<div class="flex justify-between items-end mb-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Confidence Level</span>
+<span class="font-headline-md text-headline-md text-primary">92%</span>
+</div>
+<div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full w-[92%]"></div>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-3 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm bg-opacity-50">Cup-to-Disc Ratio: 0.7</span>
+<span class="px-3 py-1 rounded-full bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm bg-opacity-50">RNFL Thinning</span>
+</div>
+</div>
+<!-- Notes & Controls -->
+<div class="bg-surface-container-lowest rounded-[24px] p-6 shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-surface-variant flex-1 flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4">Clinical Validation</h3>
+<div class="mb-6 flex-1">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="clinical-notes">Doctor's Notes</label>
+<textarea class="w-full p-3 rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-md text-body-md resize-none h-32" id="clinical-notes" placeholder="Add observations, confirm diagnosis, or note discrepancies..."></textarea>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex gap-3">
+<button class="flex-1 py-3 px-4 rounded-full bg-surface-container-highest text-on-surface font-label-md text-label-md hover:bg-surface-variant transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+                                Edit Finding
+                            </button>
+<button class="flex-1 py-3 px-4 rounded-full bg-primary text-on-primary font-label-md text-label-md hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+                                Approve
+                            </button>
+</div>
+<button class="w-full py-3 px-4 rounded-full border border-outline-variant text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2 mt-2">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+                            Send Feedback to Patient
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar for Mobile -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe docked full-width bottom-0 rounded-t-xl bg-surface-container-highest/90 backdrop-blur-2xl shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm text-label-sm mt-1">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1.5 -translate-y-1 duration-200" href="#">
+<span class="material-symbols-outlined icon-fill" data-icon="center_focus_strong">center_focus_strong</span>
+<span class="font-label-sm text-label-sm mt-1">Scan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-label-sm text-label-sm mt-1">Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="show_chart">show_chart</span>
+<span class="font-label-sm text-label-sm mt-1">History</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-sm text-label-sm mt-1">Settings</span>
+</a>
+</nav>
+</body></html>

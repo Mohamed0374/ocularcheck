@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Diagnostic Result - EyeGuard AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "secondary-fixed": "#94f990",
+                            "surface-container-lowest": "#ffffff",
+                            "on-primary-container": "#002c4f",
+                            "on-tertiary": "#ffffff",
+                            "on-secondary-fixed-variant": "#005313",
+                            "on-primary-fixed-variant": "#00497d",
+                            "primary": "#0061a4",
+                            "on-background": "#1b1c1c",
+                            "surface-container-low": "#f6f3f2",
+                            "on-tertiary-container": "#392900",
+                            "inverse-surface": "#303030",
+                            "error-container": "#ffdad6",
+                            "on-error": "#ffffff",
+                            "tertiary-container": "#b98b00",
+                            "surface-variant": "#e5e2e1",
+                            "on-tertiary-fixed": "#261a00",
+                            "secondary-container": "#91f78e",
+                            "secondary-fixed-dim": "#78dc77",
+                            "secondary": "#006e1c",
+                            "on-error-container": "#93000a",
+                            "on-primary": "#ffffff",
+                            "surface": "#fcf9f8",
+                            "surface-container-high": "#eae7e7",
+                            "inverse-primary": "#9ecaff",
+                            "primary-fixed-dim": "#9ecaff",
+                            "on-secondary-fixed": "#002204",
+                            "on-primary-fixed": "#001d36",
+                            "surface-container": "#f0eded",
+                            "inverse-on-surface": "#f3f0ef",
+                            "primary-fixed": "#d1e4ff",
+                            "on-surface": "#1b1c1c",
+                            "tertiary": "#785900",
+                            "surface-container-highest": "#e5e2e1",
+                            "surface-tint": "#0061a4",
+                            "background": "#fcf9f8",
+                            "tertiary-fixed": "#ffdf9e",
+                            "surface-bright": "#fcf9f8",
+                            "error": "#ba1a1a",
+                            "on-surface-variant": "#404752",
+                            "tertiary-fixed-dim": "#fabd00",
+                            "on-secondary-container": "#00731e",
+                            "on-tertiary-fixed-variant": "#5b4300",
+                            "on-secondary": "#ffffff",
+                            "outline-variant": "#bfc7d4",
+                            "primary-container": "#2196f3",
+                            "outline": "#707883",
+                            "surface-dim": "#dcd9d9",
+                            "warning": "#e65100",
+                            "warning-container": "#ffe0b2",
+                            "on-warning-container": "#4e1d04"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "2xl": "1.5rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "container-max": "1280px",
+                            "margin-mobile": "16px",
+                            "gutter": "24px",
+                            "base": "8px",
+                            "margin-desktop": "64px",
+                            "safe-bottom": "env(safe-area-inset-bottom, 20px)"
+                    },
+                    "fontFamily": {
+                            "body-md": ["Inter", "sans-serif"],
+                            "headline-lg": ["Inter", "sans-serif"],
+                            "headline-md": ["Inter", "sans-serif"],
+                            "headline-lg-mobile": ["Inter", "sans-serif"],
+                            "body-lg": ["Inter", "sans-serif"],
+                            "label-md": ["Inter", "sans-serif"],
+                            "label-sm": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                            "headline-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                            "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                            "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .progress-bar-fill {
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Hide scrollbar for clean UI */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        * {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen pb-safe-bottom">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 sticky backdrop-blur-xl bg-surface/80 dark:bg-surface-dim/80 shadow-sm flex justify-between items-center w-full px-4 py-2 z-50">
+<div class="flex items-center gap-2">
+<button aria-label="Menu" class="p-2 rounded-full hover:bg-primary-container/20 dark:hover:bg-primary-fixed-dim/10 transition-colors text-on-surface-variant dark:text-outline active:scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined" data-icon="menu" style="font-variation-settings: 'FILL' 0;">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">EyeGuard AI</h1>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="User Profile" class="p-2 rounded-full hover:bg-primary-container/20 dark:hover:bg-primary-fixed-dim/10 transition-colors text-on-surface-variant dark:text-outline active:scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined" data-icon="account_circle" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+</button>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-6 flex flex-col gap-6">
+<!-- High-fidelity Scan Image Area -->
+<section class="relative w-full rounded-2xl overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.1)] bg-surface-container-highest">
+<div class="aspect-[4/3] md:aspect-[21/9] w-full relative">
+<img alt="Retinal Scan" class="object-cover w-full h-full" data-alt="A high-resolution, incredibly detailed medical retinal scan image shown in light mode. The fundus is clearly visible with sophisticated, glowing overlay graphics indicating areas of interest. The overlay uses precise geometric shapes and calm-tech colors like deep primary blues to highlight microaneurysms, with soft white and light grey interface elements surrounding it. The overall aesthetic is highly professional, clinical, and technologically advanced, conveying clear diagnostic data without alarming the user." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuKj-aVF9-RkjQMG6tX2TCNil3iXZIyL28lKYG6DNoIwf146Eu3WgdV7Hk3BY2Po6S4v-tce8LpxDe5IcYxMzkqnEh1u8oywsN1y4skg7IwaEefusoQQOhtacs5P0h-4KzDmnk-zSY9rzGiQEOaxbtokHa6FWQsbpA3MtnKjGHbh7QMdIrx_RoqdfrD3grAORuQGX32foUbDnz1ZqE4_PxKv2yel-22mOJqzPx8yMatei5Poby8BeT51HZm-6hprTt2bpsqna8Wso"/>
+<!-- AI Overlay Graphics (Simulated) -->
+<div class="absolute inset-0 pointer-events-none">
+<svg class="w-full h-full preserve-3d" viewbox="0 0 100 100">
+<circle class="text-primary animate-pulse" cx="45" cy="55" fill="none" r="8" stroke="currentColor" stroke-width="0.5"></circle>
+<line class="text-primary" stroke="currentColor" stroke-width="0.5" x1="45" x2="30" y1="47" y2="30"></line>
+<rect class="text-primary/80" fill="currentColor" height="8" rx="2" width="20" x="15" y="25"></rect>
+<text fill="white" font-family="Inter" font-size="3" font-weight="600" text-anchor="middle" x="25" y="30">ANOMALY</text>
+</svg>
+</div>
+<!-- Scan Meta Data Badge -->
+<div class="absolute bottom-4 left-4 glass-panel rounded-lg px-3 py-1.5 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-on-surface" data-icon="analytics">analytics</span>
+<span class="font-label-sm text-label-sm text-on-surface">Scan ID: #EG-2023-A4B</span>
+</div>
+<div class="absolute bottom-4 right-4 glass-panel rounded-lg px-3 py-1.5 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span class="font-label-sm text-label-sm text-on-surface">AI Active</span>
+</div>
+</div>
+</section>
+<!-- Main Diagnostic Card -->
+<section class="bg-surface-container-lowest rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] p-6 md:p-8 flex flex-col gap-6 border border-surface-variant/50 relative overflow-hidden">
+<!-- Decorative Accent -->
+<div class="absolute top-0 left-0 w-2 h-full bg-warning"></div>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<h2 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-1">AI Diagnosis Result</h2>
+<h3 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Early Stage Diabetic Retinopathy detected.</h3>
+</div>
+<div class="bg-warning-container text-on-warning-container px-4 py-2 rounded-full flex items-center gap-2 shadow-sm whitespace-nowrap">
+<span class="material-symbols-outlined text-[20px]" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="font-label-md text-label-md font-bold">Moderate Risk</span>
+</div>
+</div>
+<!-- Metrics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-surface-container-low p-4 rounded-xl border border-surface-variant/30">
+<!-- Confidence Score -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="policy">policy</span>
+                            AI Confidence Score
+                        </span>
+<span class="font-headline-md text-headline-md text-primary font-bold">94%</span>
+</div>
+<div class="h-2 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary progress-bar-fill rounded-full" data-target-width="94%" style="width: 0%;"></div>
+</div>
+</div>
+<!-- Severity Indicator -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="speed">speed</span>
+                            Severity Level (1-5)
+                        </span>
+<span class="font-headline-md text-headline-md text-warning font-bold">Level 3</span>
+</div>
+<div class="flex gap-1 h-2 w-full">
+<div class="h-full flex-1 bg-secondary rounded-l-full"></div>
+<div class="h-full flex-1 bg-secondary-fixed-dim"></div>
+<div class="h-full flex-1 bg-warning progress-bar-fill" data-target-width="100%" style="width: 0%;"></div>
+<div class="h-full flex-1 bg-surface-variant"></div>
+<div class="h-full flex-1 bg-surface-variant rounded-r-full"></div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-wrap gap-3 mt-2">
+<button class="flex-1 min-w-[140px] md:flex-none flex items-center justify-center gap-2 bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-full hover:bg-primary-container hover:text-on-primary-container transition-all shadow-sm active:scale-95">
+<span class="material-symbols-outlined" data-icon="volume_up">volume_up</span>
+                    Listen to Result
+                </button>
+<button class="flex-1 min-w-[140px] md:flex-none flex items-center justify-center gap-2 bg-primary/10 text-primary font-label-md text-label-md px-6 py-3 rounded-full hover:bg-primary/20 transition-all active:scale-95 border border-primary/20">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                    Download PDF
+                </button>
+<button class="flex-1 min-w-[140px] md:flex-none flex items-center justify-center gap-2 bg-primary/10 text-primary font-label-md text-label-md px-6 py-3 rounded-full hover:bg-primary/20 transition-all active:scale-95 border border-primary/20">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+                    Book Doctor
+                </button>
+<button aria-label="Share" class="flex-none p-3 rounded-full bg-surface-container text-on-surface hover:bg-surface-variant transition-colors flex items-center justify-center active:scale-95 border border-surface-variant/50">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</button>
+</div>
+</section>
+<!-- Educational Section (Bento Grid Style) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 bg-surface-container-lowest rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] p-6 border border-surface-variant/50 flex flex-col gap-4">
+<div class="flex items-center gap-2 text-primary mb-2">
+<span class="material-symbols-outlined" data-icon="info" style="font-variation-settings: 'FILL' 1;">info</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">About Diabetic Retinopathy</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Diabetic retinopathy is a complication of diabetes that affects the eyes. It's caused by damage to the blood vessels of the light-sensitive tissue at the back of the eye (retina). 
+                </p>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    At this early stage (Non-proliferative diabetic retinopathy), the walls of the blood vessels in your retina weaken. Tiny bulges (microaneurysms) protrude from the vessel walls, sometimes leaking fluid and blood into the retina.
+                </p>
+</div>
+<div class="bg-primary text-on-primary rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.1)] p-6 flex flex-col justify-between relative overflow-hidden">
+<!-- Abstract BG pattern -->
+<div class="absolute -right-10 -top-10 opacity-10">
+<span class="material-symbols-outlined text-[150px]" data-icon="visibility">visibility</span>
+</div>
+<div class="relative z-10">
+<h4 class="font-headline-md text-headline-md mb-2">Next Steps</h4>
+<ul class="flex flex-col gap-3 font-label-md text-label-md">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] shrink-0 mt-0.5" data-icon="check_circle">check_circle</span>
+<span>Schedule an in-person ophthalmic exam within 2-4 weeks.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] shrink-0 mt-0.5" data-icon="check_circle">check_circle</span>
+<span>Review blood sugar management with your primary physician.</span>
+</li>
+</ul>
+</div>
+<button class="relative z-10 mt-6 w-full bg-on-primary text-primary font-label-md text-label-md px-4 py-2.5 rounded-full hover:bg-surface transition-colors flex items-center justify-center gap-2 shadow-sm">
+                    Find Specialist Near Me
+                    <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden docked full-width bottom-0 rounded-t-xl bg-surface-container-highest/90 dark:bg-surface-container-lowest/90 backdrop-blur-2xl shadow-[0_-4px_12px_rgba(0,0,0,0.05)] fixed left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe-bottom">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary-fixed-dim text-on-secondary-container dark:text-on-secondary-fixed-variant rounded-full px-4 py-1.5 -translate-y-1 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="center_focus_strong" style="font-variation-settings: 'FILL' 1;">center_focus_strong</span>
+<span class="font-label-sm text-label-sm">Scan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="event_note">event_note</span>
+<span class="font-label-sm text-label-sm">Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="show_chart">show_chart</span>
+<span class="font-label-sm text-label-sm">History</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="settings">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+</nav>
+<script>
+        // Animate progress bars on load
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const progressBars = document.querySelectorAll('.progress-bar-fill');
+                progressBars.forEach(bar => {
+                    const targetWidth = bar.getAttribute('data-target-width');
+                    if (targetWidth) {
+                        bar.style.width = targetWidth;
+                    }
+                });
+            }, 300);
+        });
+    </script>
+</body></html>

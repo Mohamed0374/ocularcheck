@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EyeGuard AI - Authentication</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#94f990",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#002c4f",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#005313",
+                    "on-primary-fixed-variant": "#00497d",
+                    "primary": "#0061a4",
+                    "on-background": "#1b1c1c",
+                    "surface-container-low": "#f6f3f2",
+                    "on-tertiary-container": "#392900",
+                    "inverse-surface": "#303030",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#b98b00",
+                    "surface-variant": "#e5e2e1",
+                    "on-tertiary-fixed": "#261a00",
+                    "secondary-container": "#91f78e",
+                    "secondary-fixed-dim": "#78dc77",
+                    "secondary": "#006e1c",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "surface": "#fcf9f8",
+                    "surface-container-high": "#eae7e7",
+                    "inverse-primary": "#9ecaff",
+                    "primary-fixed-dim": "#9ecaff",
+                    "on-secondary-fixed": "#002204",
+                    "on-primary-fixed": "#001d36",
+                    "surface-container": "#f0eded",
+                    "inverse-on-surface": "#f3f0ef",
+                    "primary-fixed": "#d1e4ff",
+                    "on-surface": "#1b1c1c",
+                    "tertiary": "#785900",
+                    "surface-container-highest": "#e5e2e1",
+                    "surface-tint": "#0061a4",
+                    "background": "#fcf9f8",
+                    "tertiary-fixed": "#ffdf9e",
+                    "surface-bright": "#fcf9f8",
+                    "error": "#ba1a1a",
+                    "on-surface-variant": "#404752",
+                    "tertiary-fixed-dim": "#fabd00",
+                    "on-secondary-container": "#00731e",
+                    "on-tertiary-fixed-variant": "#5b4300",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#bfc7d4",
+                    "primary-container": "#2196f3",
+                    "outline": "#707883",
+                    "surface-dim": "#dcd9d9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "base": "8px",
+                    "margin-desktop": "64px"
+            },
+            "fontFamily": {
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "headline-lg": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Inter"
+                    ],
+                    "headline-lg-mobile": [
+                            "Inter"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "26px",
+                            {
+                                    "lineHeight": "32px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .role-card-active {
+            border-color: #0061a4;
+            background-color: #f0eded;
+        }
+
+        .auth-tab-active {
+            border-bottom-width: 2px;
+            border-bottom-color: #0061a4;
+            color: #0061a4;
+        }
+
+        .auth-tab-inactive {
+            color: #404752;
+            border-bottom-color: transparent;
+        }
+        
+        /* Subtle background pattern */
+        body {
+            background-image: radial-gradient(circle at 50% 0%, #d1e4ff 0%, #fcf9f8 50%);
+            background-attachment: fixed;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen font-body-md flex items-center justify-center p-4 md:p-8">
+<!-- Suppressed Shell Components (TopAppBar, BottomNavBar, NavigationDrawer) as per linear/transactional logic -->
+<main class="w-full max-w-4xl grid md:grid-cols-2 gap-8 glass-panel rounded-[24px] shadow-xl overflow-hidden relative">
+<!-- Left Column: Branding & Imagery -->
+<div class="hidden md:flex flex-col justify-between p-8 md:p-12 bg-primary text-on-primary relative overflow-hidden">
+<!-- Decorative Medical Graphic Overlay -->
+<div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M50 0 L100 50 L50 100 L0 50 Z\' fill=\'none\' stroke=\'white\' stroke-width=\'0.5\'/%3E%3C/svg%3E'); background-size: 50px 50px;"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-12">
+<span class="material-symbols-outlined text-[32px]">visibility</span>
+<h1 class="font-headline-lg text-headline-lg">EyeGuard AI</h1>
+</div>
+<h2 class="font-headline-md text-headline-md mb-4">Precision Ocular Diagnostics.</h2>
+<p class="font-body-lg text-body-lg text-primary-fixed-dim opacity-90">Advanced imaging and AI analysis for clinical excellence.</p>
+</div>
+<div class="relative z-10 mt-12 rounded-2xl overflow-hidden h-64 w-full shadow-lg">
+<img class="object-cover w-full h-full" data-alt="A macro photograph of a human eye highlighting the intricate patterns of the iris, illuminated by a clean, modern clinical ring light. The scene is bright and professional, utilizing a sophisticated light-mode palette with crisp white reflections and deep, vibrant eye colors, evoking a sense of advanced medical technology and clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpQ7CcdCaab7zuJTX_z2PrVs0YwZrdxEWDjgRBszqCNe68MnrLkpnShVC6JB47iuW1j0lLOiz6cP_Pk8IBpTnszOUTYu7FGBucLxyUdWL8aPP-XJf4RW5d_WiOOtIu9cgykAztzocKi5LDqohmwQ6Nr20W0kOQX5WFKKzhj8aAVzUFwOh2GC-FUsmh06HoimPLS3lSpT-xdJe79Oa_B18TVYMmbavFWWiaNb83mIxn8eUOPa1Zu4wcUgtINKWi4IxtOsqGsj7eDuE"/>
+</div>
+</div>
+<!-- Right Column: Authentication Form -->
+<div class="p-6 md:p-12 flex flex-col justify-center bg-surface w-full h-full">
+<!-- Mobile Brand Header (Visible only on small screens) -->
+<div class="flex items-center gap-2 mb-8 md:hidden justify-center text-primary">
+<span class="material-symbols-outlined text-[28px]">visibility</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile">EyeGuard AI</span>
+</div>
+<div class="w-full max-w-md mx-auto">
+<!-- Tabs -->
+<div class="flex border-b border-surface-variant mb-8 w-full">
+<button class="flex-1 pb-4 text-center font-label-md text-label-md auth-tab-active transition-colors" id="tab-login" onclick="switchTab('login')">
+                        Login
+                    </button>
+<button class="flex-1 pb-4 text-center font-label-md text-label-md auth-tab-inactive transition-colors" id="tab-signup" onclick="switchTab('signup')">
+                        Sign Up
+                    </button>
+</div>
+<!-- Form Area -->
+<form class="space-y-6" id="auth-form">
+<!-- Signup Only: Role Selection -->
+<div class="hidden space-y-4 mb-6" id="role-selection">
+<label class="font-label-md text-label-md text-on-surface">Select your role</label>
+<div class="grid grid-cols-2 gap-4">
+<!-- Patient Card -->
+<div class="role-card flex flex-col items-center justify-center p-4 border-2 border-outline-variant rounded-xl cursor-pointer hover:bg-surface-container-low transition-all" onclick="selectRole(this, 'patient')">
+<span class="material-symbols-outlined text-[32px] text-primary mb-2" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="font-label-md text-label-md">I am a Patient</span>
+</div>
+<!-- Doctor Card -->
+<div class="role-card flex flex-col items-center justify-center p-4 border-2 border-outline-variant rounded-xl cursor-pointer hover:bg-surface-container-low transition-all" onclick="selectRole(this, 'doctor')">
+<span class="material-symbols-outlined text-[32px] text-primary mb-2" style="font-variation-settings: 'FILL' 0;">stethoscope</span>
+<span class="font-label-md text-label-md">I am a Doctor</span>
+</div>
+</div>
+</div>
+<!-- Input Fields -->
+<div class="space-y-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="identifier">Email or Phone Number</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="identifier" placeholder="Enter your credentials" type="text"/>
+</div>
+<div>
+<div class="flex justify-between items-center mb-1">
+<label class="block font-label-md text-label-md text-on-surface" for="password">Password</label>
+<a class="font-label-sm text-label-sm text-primary hover:underline" href="#" id="forgot-password">Forgot?</a>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface" onclick="togglePassword()" type="button">
+<span class="material-symbols-outlined" id="visibility-icon">visibility_off</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full bg-primary hover:bg-primary/90 text-on-primary font-label-md text-label-md py-3 rounded-full transition-all shadow-sm flex items-center justify-center gap-2" type="button">
+<span id="submit-btn-text">Log In</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">arrow_forward</span>
+</button>
+<!-- Divider -->
+<div class="relative flex py-4 items-center">
+<div class="flex-grow border-t border-outline-variant"></div>
+<span class="flex-shrink-0 mx-4 text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">or continue with</span>
+<div class="flex-grow border-t border-outline-variant"></div>
+</div>
+<!-- Social Logins -->
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-2 bg-surface-container-lowest border border-outline-variant hover:bg-surface-container-low text-on-surface font-label-md text-label-md py-2.5 rounded-full transition-all" type="button">
+<!-- Placeholder icon for Google -->
+<span class="material-symbols-outlined">login</span>
+                            Google
+                        </button>
+<button class="flex items-center justify-center gap-2 bg-surface-container-lowest border border-outline-variant hover:bg-surface-container-low text-on-surface font-label-md text-label-md py-2.5 rounded-full transition-all" type="button">
+<!-- Placeholder icon for Apple -->
+<span class="material-symbols-outlined">apps</span>
+                            Apple
+                        </button>
+</div>
+</form>
+</div>
+</div>
+</main>
+<script>
+        function switchTab(tab) {
+            const loginTab = document.getElementById('tab-login');
+            const signupTab = document.getElementById('tab-signup');
+            const roleSelection = document.getElementById('role-selection');
+            const submitBtnText = document.getElementById('submit-btn-text');
+            const forgotPassword = document.getElementById('forgot-password');
+
+            if (tab === 'login') {
+                loginTab.className = 'flex-1 pb-4 text-center font-label-md text-label-md auth-tab-active transition-colors';
+                signupTab.className = 'flex-1 pb-4 text-center font-label-md text-label-md auth-tab-inactive transition-colors';
+                roleSelection.classList.add('hidden');
+                submitBtnText.innerText = 'Log In';
+                forgotPassword.classList.remove('hidden');
+            } else {
+                signupTab.className = 'flex-1 pb-4 text-center font-label-md text-label-md auth-tab-active transition-colors';
+                loginTab.className = 'flex-1 pb-4 text-center font-label-md text-label-md auth-tab-inactive transition-colors';
+                roleSelection.classList.remove('hidden');
+                submitBtnText.innerText = 'Create Account';
+                forgotPassword.classList.add('hidden');
+            }
+        }
+
+        function selectRole(element, role) {
+            // Reset all cards
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.remove('role-card-active');
+            });
+            // Set active
+            element.classList.add('role-card-active');
+        }
+
+        function togglePassword() {
+            const input = document.getElementById('password');
+            const icon = document.getElementById('visibility-icon');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.innerText = 'visibility';
+            } else {
+                input.type = 'password';
+                icon.innerText = 'visibility_off';
+            }
+        }
+    </script>
+</body></html>
