@@ -4,3 +4,58 @@ node_modules/
 *.jks
 *.keystore
 key.properties
+
+# --- OS files ---
+Thumbs.db
+.DS_Store
+
+# --- IDE / editor ---
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# --- Flutter / Dart ---
+.dart_tool/
+build/
+.flutter-plugins*
+*.iml
+local.properties
+coverage/
+
+# --- Node ---
+dist/
+coverage/
+*.log
+
+# --- Python ---
+__pycache__/
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# --- Environment files: local config only; the committed template stays tracked ---
+.env.*
+!.env.example
+
+# --- Secrets ---
+# These files identify projects/accounts or grant access (platform keys, signing
+# certs, FCM service accounts). Once pushed they are scraped by bots within minutes
+# and purging them from history is hard — they must never reach Git.
+*.pem
+*.p12
+google-services.json
+GoogleService-Info.plist
+serviceAccount*.json
+
+# --- ML artifacts & datasets: large binaries; stored outside Git (Kaggle download, external bucket) ---
+*.onnx
+*.pt
+*.pth
+data/
+datasets/
+checkpoints/
+
+# --- Docker volumes: only local bind-mount data created by docker-compose ---
+infra/volumes/
