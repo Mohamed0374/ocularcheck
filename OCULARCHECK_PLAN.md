@@ -244,13 +244,13 @@ AuditLog(id, actor_id, action, entity, entity_id, ip, created_at)
 ### PHASE 0 — Environment setup  *(mostly manual)*
 **Goal:** a machine where every tool runs.
 
-- [ ] **P0-T1 🧑 Install core tools** — Git, VS Code, Node.js (current LTS), Docker Desktop, Python 3.11+, Java JDK 17, Android Studio (SDK + emulator), Flutter SDK. *(Claude gives OS-specific steps: Windows via `winget`, macOS via `brew`.)*
-- [ ] **P0-T2 🧑 Verify toolchain** — `flutter doctor`, `node -v`, `docker --version`, `python --version`, create an Android emulator (Pixel, latest stable API).
-- [ ] **P0-T3 🧑 VS Code extensions** — Dart, Flutter, ESLint, Prettier, Prisma, Docker, Python, GitLens, Error Lens, Thunder Client (or REST Client).
-- [ ] **P0-T4 🧑 Install OpenCode CLI** and connect a model provider (login/API key). Verify by running `opencode` in an empty folder.
-- [ ] **P0-T5 🧑 GitHub** — create a private repo `ocularcheck`, set up SSH key or GitHub CLI login, clone locally.
-- [ ] **P0-T6 🧑 Accounts to create now (free tiers)** — Firebase, Google Cloud (Maps), Kaggle, Cloudflare (R2) or AWS (S3). *(Keys are created later, in the phase that needs them.)*
-- [ ] **P0-T7 🧑 Copy design files** — unzip the Stitch export into `design/` in the repo.
+- [x] **P0-T1 🧑 Install core tools** — Git, VS Code, Node.js (current LTS), Docker Desktop, Python 3.11+, Java JDK 17, Android Studio (SDK + emulator), Flutter SDK. *(Claude gives OS-specific steps: Windows via `winget`, macOS via `brew`.)*
+- [x] **P0-T2 🧑 Verify toolchain** — `flutter doctor`, `node -v`, `docker --version`, `python --version`, create an Android emulator (Pixel, latest stable API).
+- [x] **P0-T3 🧑 VS Code extensions** — Dart, Flutter, ESLint, Prettier, Prisma, Docker, Python, GitLens, Error Lens, Thunder Client (or REST Client).
+- [x] **P0-T4 🧑 Install OpenCode CLI** and connect a model provider (login/API key). Verify by running `opencode` in an empty folder.
+- [x] **P0-T5 🧑 GitHub** — create a private repo `ocularcheck`, set up SSH key or GitHub CLI login, clone locally.
+- [x] **P0-T6 🧑 Accounts to create now (free tiers)** — Firebase, Google Cloud (Maps), Kaggle, Cloudflare (R2) or AWS (S3). *(Keys are created later, in the phase that needs them.)*
+- [x] **P0-T7 🧑 Copy design files** — unzip the Stitch export into `design/` in the repo.
 
 **Done when:** `flutter doctor` is green for Android, Docker runs `hello-world`, OpenCode answers in the repo folder.
 
@@ -259,9 +259,9 @@ AuditLog(id, actor_id, action, entity, entity_id, ip, created_at)
 ### PHASE 1 — Repo scaffold, rules, CI
 **Goal:** empty-but-professional skeleton.
 
-- [ ] **P1-T1 🤖** Create monorepo folders, root `.gitignore`, `.editorconfig`, `README.md`, `LICENSE` choice placeholder, `docs/adr/0001-tech-stack.md`.
-- [ ] **P1-T2 🤖** Create `AGENTS.md` from §4.6 (adapt if needed).
-- [ ] **P1-T3 🤖** Scaffold `backend/` (NestJS, TS strict, ESLint, Prettier, Jest) and `ai-service/` (FastAPI, ruff, mypy, pytest) with a `/health` endpoint each.
+- [x] **P1-T1 🤖** Create monorepo folders, root `.gitignore`, `.editorconfig`, `README.md`, `LICENSE` choice placeholder, `docs/adr/0001-tech-stack.md`.
+- [x] **P1-T2 🤖** Create `AGENTS.md` from §4.6 (adapt if needed).
+- [x] **P1-T3 🤖** Scaffold `backend/` (NestJS, TS strict, ESLint, Prettier, Jest) and `ai-service/` (FastAPI, ruff, mypy, pytest) with a `/health` endpoint each.
 - [ ] **P1-T4 🤖** Scaffold `mobile/` (Flutter, org id `com.ocularcheck.app`, analyzer rules, folder structure from §3.1).
 - [ ] **P1-T5 🤖** `infra/docker-compose.yml`: Postgres(+PostGIS), Redis, MinIO, backend, ai-service; `.env.example` files for each.
 - [ ] **P1-T6 🤖** GitHub Actions: lint + test + build for each package, dependency audit, secret scanning (gitleaks).
