@@ -1,0 +1,24 @@
+[project]
+name = "ocularcheck-ai"
+version = "0.0.0"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+extend-exclude = '''\.venv'''
+
+[tool.mypy]
+strict = true
+exclude = ["\\.venv"]
+python_version = "3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

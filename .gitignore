@@ -59,3 +59,6 @@ checkpoints/
 
 # --- Docker volumes: only local bind-mount data created by docker-compose ---
 infra/volumes/
+
+# --- Build artifacts: incremental compiler state, never committed ---
+*.tsbuildinfo
