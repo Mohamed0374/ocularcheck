@@ -1,0 +1,21 @@
+# Python caches and virtualenvs stay out of the build context —
+# dependencies are installed inside the image from requirements-dev.txt.
+.venv/
+__pycache__/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.pytest_cache
+*.pyc
+
+# Node-style artifacts (symmetry with backend/)
+node_modules/
+dist/
+coverage/
+*.log
+
+# Local env files / secrets
+.env*
+
+# VCS
+.git/

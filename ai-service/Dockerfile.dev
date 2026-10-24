@@ -1,0 +1,22 @@
+# Development image for the OcularCheck AI service (Phase 1 · P1-T5).
+# The production image is built in Phase 16 (P16-T2).
+FROM python:3.12.15-slim-bookworm
+
+# Dev runtime hygiene: no .pyc writes, unbuffered stdout/stderr for live logs.
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+# requirements-dev.txt pulls in requirements.txt via "-r", so both are copied.
+COPY requirements.txt requirements-dev.txt ./
+RUN pip install --no-cache-dir -r requirements-dev.txt
+
+# Dedicated non-root user; no secrets are baked into this image — all runtime
+# configuration is injected via compose env.
+RUN useradd --uid 10001 --create-home ocuser \
+    && chown -R ocuser:ocuser /app
+USER ocuser
+
+# Default run command; docker-compose.yml launches uvicorn with --reload.
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

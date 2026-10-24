@@ -1,0 +1,19 @@
+# Host dependencies are never copied — the dev image runs npm ci itself.
+node_modules/
+node_modules
+
+# Build/test artifacts
+dist/
+coverage/
+*.tsbuildinfo
+*.log
+
+# Virtualenv / Python caches (kept here for symmetry with ai-service)
+.venv/
+__pycache__/
+
+# Local env files / secrets
+.env*
+
+# VCS
+.git/
