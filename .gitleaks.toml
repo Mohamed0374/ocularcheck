@@ -1,0 +1,12 @@
+# OcularCheck AI gitleaks configuration (Phase 1 · P1-T6).
+#
+# Extends the default rule set and allowlists the committed example env file,
+# whose values are intentionally fake "change-me-*" placeholders — never real
+# credentials. The real env file (infra/.env) is git-ignored, so gitleaks never
+# sees it. Extended allowlists are appended to the ruleset per gitleaks' docs.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Obviously fake placeholders in the example env file"
+paths = ['''infra/\.env\.example''']
