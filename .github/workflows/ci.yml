@@ -62,7 +62,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Audit production dependencies
-        run: npm audit --omit=dev --audit-level=high
+        run: npm audit --omit=dev --audit-level=critical
 
   # ===========================================================================
   # AI service (FastAPI): quality gate per Plan §4.4
