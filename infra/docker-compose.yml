@@ -26,7 +26,7 @@ services:
   # Postgres 17 + PostGIS 3.5 — the relational store (major.minor pinned tag).
   # ---------------------------------------------------------------------------
   postgres:
-    image: postgis/postgis:17-3.5
+    image: postgis/postgis:18-3.6
     environment:
       POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER in infra/.env}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in infra/.env}
