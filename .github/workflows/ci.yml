@@ -28,12 +28,15 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  # All jobs pin the runner image (ubuntu-24.04) instead of the floating
+  # "ubuntu-latest" label, which migrates between Ubuntu versions, for
+  # reproducible builds.
   # ===========================================================================
   # Backend (NestJS): quality gate per Plan §4.4
   # ===========================================================================
   backend:
     name: Backend
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     defaults:
       run:
@@ -69,7 +72,7 @@ jobs:
   # ===========================================================================
   ai-service:
     name: AI service
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     defaults:
       run:
@@ -102,7 +105,7 @@ jobs:
   # ===========================================================================
   mobile:
     name: Mobile
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # Cold gradle build measured ~24 min locally (no ~/.gradle cache), so 25
     # would be fatal risk on the first CI run.
     timeout-minutes: 40
@@ -142,7 +145,7 @@ jobs:
   # ===========================================================================
   infra-config:
     name: Infra config
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - name: Check out repository
@@ -155,27 +158,38 @@ jobs:
         run: docker compose -f infra/docker-compose.yml --env-file infra/.env config -q
 
   # ===========================================================================
-  # Secret scan: full history scan with gitleaks (no license needed for
-  # personal-account repos; see .gitleaks.toml at the repo root).
+  # Secret scan: full history scan with gitleaks. The official gitleaks
+  # GitHub Action needs PR-write API access, which would require widening the
+  # read-only workflow permissions here — so the scan runs the official
+  # gitleaks Docker image directly instead (see .gitleaks.toml at repo root).
+  # NO continue-on-error at any level: a leak must fail this job and the gate.
   # ===========================================================================
   secret-scan:
     name: Secret scan
     runs-on: ubuntu-24.04
     timeout-minutes: 10
-    continue-on-error: true
     steps:
       - name: Check out full history
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
           fetch-depth: 0
-      - name: Scan git history for secrets
-        uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # auto-provided; used by the action to verify the event/PR
-          GITLEAKS_CONFIG: .gitleaks.toml
-          GITLEAKS_ENABLE_COMMENTS: "false" # no PR comments; CI gate owns the verdict
-          continue-on-error: true
+      # The gitleaks image is pinned to an exact version tag AND manifest
+      # digest (verified at pin time via docker run/pull/inspect:
+      # :latest == v8.30.1 == that digest).
+      #
+      # Ownership variant: the container process is mapped to the runner job's
+      # own uid/gid (--user "$(id -u):$(id -g)"). On GitHub-hosted runners the
+      # checked-out workspace is owned by that same user, so git's ownership
+      # check passes with NO safe.directory override — the strictest variant,
+      # no security check disabled.
+      - name: Scan git history for secrets (pinned gitleaks Docker image)
+        run: |
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            -v "$GITHUB_WORKSPACE:/repo" \
+            zricethezav/gitleaks:v8.30.1@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f \
+            detect --source /repo --config /repo/.gitleaks.toml --redact --no-banner -v
   # ===========================================================================
   # Gate job: exactly this one becomes the required status check.
   # It fails whenever any needed job ends with anything other than "success",
@@ -183,7 +197,7 @@ jobs:
   # ===========================================================================
   ci-gate:
     name: CI gate
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     needs: [backend, ai-service, mobile, infra-config, secret-scan]
     if: always()

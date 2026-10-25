@@ -62,7 +62,7 @@ Runs on every pull request into `main` and every push to `main` (workflow: `.git
 - **AI service** — ruff, black, mypy, pytest, plus dependency audit (`pip-audit`).
 - **Mobile** — Flutter pub get, dart format check, flutter analyze, flutter test, and a debug APK build on pushes to `main`.
 - **Infra config** — validates `infra/docker-compose.yml` with `docker compose config`.
-- **Secret scan** — gitleaks over the full git history (no license needed for personal-account repos).
+- **Secret scan** — the version+digest-pinned official gitleaks Docker image scans the full git history with the repo's `.gitleaks.toml` (no third-party Action, no extra API permissions).
 - **CI gate** — turns green only when every job above succeeded; this is the **required** status check for branch protection (P1-T7).
 
 ## License
