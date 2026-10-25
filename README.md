@@ -52,6 +52,19 @@ _Coming in later phases._ This repo is currently an empty-but-structured skeleto
 
 The single source of truth for scope, architecture, engineering standards, and the 17-phase roadmap is **[OCULARCHECK_PLAN.md](OCULARCHECK_PLAN.md)**.
 
+## CI
+
+[![CI](https://github.com/Mohamed0374/ocularcheck/actions/workflows/ci.yml/badge.svg)](https://github.com/Mohamed0374/ocularcheck/actions/workflows/ci.yml)
+
+Runs on every pull request into `main` and every push to `main` (workflow: `.github/workflows/ci.yml`, Phase 1 · P1-T6):
+
+- **Backend** — npm lint, format check, unit + e2e tests, build, and a production-dependency audit (`npm audit`).
+- **AI service** — ruff, black, mypy, pytest, plus dependency audit (`pip-audit`).
+- **Mobile** — Flutter pub get, dart format check, flutter analyze, flutter test, and a debug APK build on pushes to `main`.
+- **Infra config** — validates `infra/docker-compose.yml` with `docker compose config`.
+- **Secret scan** — the version+digest-pinned official gitleaks Docker image scans the full git history with the repo's `.gitleaks.toml` (no third-party Action, no extra API permissions).
+- **CI gate** — turns green only when every job above succeeded; this is the **required** status check for branch protection (P1-T7).
+
 ## License
 
 **TBD — all rights reserved until a license is chosen.**

@@ -1,0 +1,215 @@
+# =============================================================================
+# OcularCheck AI — CI pipeline (Phase 1 · P1-T6)
+#
+# Runs on every pull request into main and every push to main.
+# Only "CI gate" becomes the required status check in branch protection (P1-T7),
+# so neither this workflow nor its jobs may use path filters — a skipped job
+# would never report a status and could silently block or unblock merges.
+# Job names below are stable identifiers ("Backend", "AI service", "Mobile",
+# "Infra config", "Secret scan", "CI gate") — do not rename them casually.
+# =============================================================================
+
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# Read-only access is all CI needs. Not even GITHUB_TOKEN is passed to steps
+# except the secret scan (auto-provided token, documented requirement).
+permissions:
+  contents: read
+
+# One run at a time per branch; supersede in-progress runs of the same PR.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  # All jobs pin the runner image (ubuntu-24.04) instead of the floating
+  # "ubuntu-latest" label, which migrates between Ubuntu versions, for
+  # reproducible builds.
+  # ===========================================================================
+  # Backend (NestJS): quality gate per Plan §4.4
+  # ===========================================================================
+  backend:
+    name: Backend
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Set up Node 24 with npm cache
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Check formatting
+        run: npm run format:check
+      - name: Unit tests
+        run: npm test
+      - name: E2E tests
+        run: npm run test:e2e
+      - name: Build
+        run: npm run build
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=critical
+
+  # ===========================================================================
+  # AI service (FastAPI): quality gate per Plan §4.4
+  # ===========================================================================
+  ai-service:
+    name: AI service
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: ai-service
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Set up Python 3.12 with pip cache
+        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies
+        run: pip install --upgrade pip && pip install -r requirements-dev.txt && pip install pip-audit
+      - name: Ruff
+        run: ruff check .
+      - name: Black
+        run: black --check .
+      - name: Mypy
+        run: mypy .
+      - name: Tests
+        run: pytest
+      - name: Audit dependencies
+        run: pip-audit -r requirements.txt
+
+  # ===========================================================================
+  # Mobile (Flutter, Android)
+  # ===========================================================================
+  mobile:
+    name: Mobile
+    runs-on: ubuntu-24.04
+    # Cold gradle build measured ~24 min locally (no ~/.gradle cache), so 25
+    # would be fatal risk on the first CI run.
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Set up Java 17 (Temurin)
+        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Set up Flutter 3.47.7 stable with cache
+        uses: subosito/flutter-action@e938fdf56512cc96ef2f93601a5a40bde3801046 # v2.19.0
+        with:
+          flutter-version: 3.47.7
+          channel: stable
+          cache: true
+      - name: Get packages
+        run: flutter pub get
+      - name: Check formatting
+        run: dart format --set-exit-if-changed .
+      - name: Analyze
+        run: flutter analyze
+      - name: Tests
+        run: flutter test
+      - name: Build debug APK (verification of compilation; pushes to main only)
+        if: github.event_name == 'push'
+        run: flutter build apk --debug
+
+  # ===========================================================================
+  # Infra config: fail fast on a broken docker-compose.yml
+  # ===========================================================================
+  infra-config:
+    name: Infra config
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Create local env from example
+        run: cp infra/.env.example infra/.env
+      - name: Validate compose file
+        run: docker compose -f infra/docker-compose.yml --env-file infra/.env config -q
+
+  # ===========================================================================
+  # Secret scan: full history scan with gitleaks. The official gitleaks
+  # GitHub Action needs PR-write API access, which would require widening the
+  # read-only workflow permissions here — so the scan runs the official
+  # gitleaks Docker image directly instead (see .gitleaks.toml at repo root).
+  # NO continue-on-error at any level: a leak must fail this job and the gate.
+  # ===========================================================================
+  secret-scan:
+    name: Secret scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out full history
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      # The gitleaks image is pinned to an exact version tag AND manifest
+      # digest (verified at pin time via docker run/pull/inspect:
+      # :latest == v8.30.1 == that digest).
+      #
+      # Ownership variant: the container process is mapped to the runner job's
+      # own uid/gid (--user "$(id -u):$(id -g)"). On GitHub-hosted runners the
+      # checked-out workspace is owned by that same user, so git's ownership
+      # check passes with NO safe.directory override — the strictest variant,
+      # no security check disabled.
+      - name: Scan git history for secrets (pinned gitleaks Docker image)
+        run: |
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            -v "$GITHUB_WORKSPACE:/repo" \
+            zricethezav/gitleaks:v8.30.1@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f \
+            detect --source /repo --config /repo/.gitleaks.toml --redact --no-banner -v
+  # ===========================================================================
+  # Gate job: exactly this one becomes the required status check.
+  # It fails whenever any needed job ends with anything other than "success",
+  # ensuring a merge is impossible without every green job above.
+  # ===========================================================================
+  ci-gate:
+    name: CI gate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    needs: [backend, ai-service, mobile, infra-config, secret-scan]
+    if: always()
+    steps:
+      - name: Fail unless every needed job succeeded
+        run: |
+          results='${{ join(needs.*.result, ' ') }}'
+          echo "Needed job results: $results"
+          for r in $results; do
+            if [ "$r" != "success" ]; then
+              echo "::error::Required job result was '$r' (expected 'success')."
+              exit 1
+            fi
+          done
+          echo "All required jobs succeeded."
