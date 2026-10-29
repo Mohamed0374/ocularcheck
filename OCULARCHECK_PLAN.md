@@ -264,8 +264,8 @@ AuditLog(id, actor_id, action, entity, entity_id, ip, created_at)
 - [x] **P1-T3 🤖** Scaffold `backend/` (NestJS, TS strict, ESLint, Prettier, Jest) and `ai-service/` (FastAPI, ruff, mypy, pytest) with a `/health` endpoint each.
 - [x] **P1-T4 🤖** Scaffold `mobile/` (Flutter, org id `com.ocularcheck.app`, analyzer rules, folder structure from §3.1).
 - [x] **P1-T5 🤖** `infra/docker-compose.yml`: Postgres(+PostGIS), Redis, MinIO, backend, ai-service; `.env.example` files for each.
-- [ ] **P1-T6 🤖** GitHub Actions: lint + test + build for each package, dependency audit, secret scanning (gitleaks).
-- [ ] **P1-T7 🧑** Enable on GitHub: branch protection on `main` (require PR + passing checks), Dependabot, secret scanning.
+- [x] **P1-T6 🤖** GitHub Actions: lint + test + build for each package, dependency audit, secret scanning (gitleaks).
+- [x] **P1-T7 🧑** Enable on GitHub: branch protection on `main` (require PR + passing checks), Dependabot, secret scanning.
 
 **Done when:** CI is green on a first PR; `docker compose up` starts all services.
 
