@@ -2,7 +2,7 @@
 # The production image is built in Phase 16 (P16-T2).
 # Debian (glibc) basis — not alpine — because the Prisma query engine used in
 # later phases needs OpenSSL with glibc; openssl itself is installed for that.
-FROM node:24.22.1-bookworm-slim
+FROM node:26.12.0-bookworm-slim
 
 # curl: used by the docker-compose healthcheck. Minimal, dev-only.
 RUN apt-get update \
