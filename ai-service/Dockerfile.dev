@@ -1,6 +1,6 @@
 # Development image for the OcularCheck AI service (Phase 1 · P1-T5).
 # The production image is built in Phase 16 (P16-T2).
-FROM python:3.12.15-slim-bookworm
+FROM python:3.15.0-slim-bookworm
 
 # Dev runtime hygiene: no .pyc writes, unbuffered stdout/stderr for live logs.
 ENV PYTHONDONTWRITEBYTECODE=1 \
