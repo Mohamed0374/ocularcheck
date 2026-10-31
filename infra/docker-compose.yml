@@ -49,7 +49,7 @@ services:
   # declared here so the healthcheck never interpolates the secret into this file.
   # ---------------------------------------------------------------------------
   redis:
-    image: redis:8.2.10
+    image: redis:8.10.0
     command:
       - redis-server
       - --requirepass
