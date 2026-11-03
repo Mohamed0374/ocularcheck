@@ -1,10 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 
+import { appConfig, type AppConfig } from './config/app.config.js';
 import { AppModule } from './app.module.js';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
-  const port = process.env.PORT ? Number(process.env.PORT) : 3000;
-  await app.listen(port, '0.0.0.0');
+  // Typed app namespace (fail-fast validation already ran inside AppModule).
+  const appCfg: AppConfig = app.get<AppConfig>(appConfig.KEY);
+  await app.listen(appCfg.port, appCfg.host);
 }
 await bootstrap();
