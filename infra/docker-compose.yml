@@ -142,6 +142,7 @@ services:
       dockerfile: Dockerfile.dev
     command: npm run start:dev
     environment:
+      NODE_ENV: development # required by the typed config (no default)
       PORT: ${BACKEND_PORT:?set BACKEND_PORT in infra/.env}
       CHOKIDAR_USEPOLLING: "true"
       # --- service-to-service config (hostnames are compose service names) ---

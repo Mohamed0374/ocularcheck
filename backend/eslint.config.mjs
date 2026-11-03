@@ -12,5 +12,22 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': 'error',
     },
   },
+  {
+    // Guardrail (Phase 2 · P2-T1): process.env may only be read inside
+    // src/config/; every other module must depend on the typed config
+    // namespaces.
+    files: ['src/**/*.ts'],
+    ignores: ['src/config/**'],
+    rules: {
+      'no-restricted-properties': [
+        'error',
+        {
+          object: 'process',
+          property: 'env',
+          message: 'Read typed config from src/config/ (P2-T1) instead of process.env.',
+        },
+      ],
+    },
+  },
   eslintConfigPrettier,
 );
