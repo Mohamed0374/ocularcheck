@@ -10,6 +10,8 @@ import { databaseConfig, type DatabaseConfig } from './database.config.js';
 import { redisConfig, type RedisConfig } from './redis.config.js';
 import { storageConfig, type StorageConfig } from './storage.config.js';
 import { NodeEnv } from './env.validation.js';
+import { PrismaService } from '../infrastructure/prisma/prisma.service.js';
+import { AppModule } from '../app.module.js';
 
 /**
  * Proves the typed namespaces are injectable from the real module wiring.
@@ -43,7 +45,15 @@ describe('config namespaces (typed injection)', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
-    moduleRef = await Test.createTestingModule({ imports: [AppModule] }).compile();
+    // The app is DB-free in unit tests: PrismaService is replaced with a
+    // typed stub so the eager $connect() at boot never touches a database.
+    moduleRef = await Test.createTestingModule({ imports: [AppModule] })
+      .overrideProvider(PrismaService)
+      .useValue({
+        onModuleInit: async (): Promise<void> => undefined,
+        onModuleDestroy: async (): Promise<void> => undefined,
+      })
+      .compile();
     moduleRef.useLogger(false);
     app = moduleRef.createNestApplication();
     await app.init();

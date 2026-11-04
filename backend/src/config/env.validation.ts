@@ -127,6 +127,24 @@ export class EnvVariables {
 }
 
 /**
+ * Validates the CURRENT process environment. This is the ONLY sanctioned way
+ * for code outside src/config/ (seed script, db:reset wrapper) to consume
+ * environment values — process.env reads stay inside this module.
+ */
+export function loadValidatedEnv(): EnvVariables {
+  return validateEnvSync({ ...process.env });
+}
+
+/**
+ * Raw copy of the process environment, used only to spawn child processes
+ * that need the parent's PATH/credentials (scripts/db-reset.ts spawns the
+ * Prisma CLI). Values are never logged.
+ */
+export function rawEnv(): Record<string, string | undefined> {
+  return { ...process.env };
+}
+
+/**
  * Applies ENV_DEFAULTS to variables missing from the raw environment, then
  * validates and coerces values into the typed shape. Throws ONE error naming
  * every invalid/missing variable with a reason; never any variable value.
