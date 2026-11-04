@@ -5,6 +5,7 @@ import { Test } from '@nestjs/testing';
 import request from 'supertest';
 
 import { NodeEnv } from '../src/config/env.validation.js';
+import { PrismaService } from '../src/infrastructure/prisma/prisma.service.js';
 
 // AppModule boots the validated config, and ConfigModule.forRoot validates
 // during module evaluation — so deterministic fake values are installed at
@@ -29,7 +30,15 @@ describe('Health (e2e)', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
-    const moduleRef = await Test.createTestingModule({ imports: [AppModule] }).compile();
+    // DB-free e2e: replace PrismaService so the eager $connect() at boot
+    // never touches a database.
+    const moduleRef = await Test.createTestingModule({ imports: [AppModule] })
+      .overrideProvider(PrismaService)
+      .useValue({
+        onModuleInit: async (): Promise<void> => undefined,
+        onModuleDestroy: async (): Promise<void> => undefined,
+      })
+      .compile();
     moduleRef.useLogger(false);
     app = moduleRef.createNestApplication();
     await app.init();
