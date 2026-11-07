@@ -35,6 +35,17 @@ export enum NodeEnv {
   Production = 'production',
 }
 
+/** pino levels exposed as LOG_LEVEL (P2-T3). */
+export enum LogLevel {
+  Fatal = 'fatal',
+  Error = 'error',
+  Warn = 'warn',
+  Info = 'info',
+  Debug = 'debug',
+  Trace = 'trace',
+  Silent = 'silent',
+}
+
 /**
  * Optional variables with built-in defaults, applied when absent from the
  * environment. Keys must match the env var names used by infra/
@@ -43,6 +54,7 @@ export enum NodeEnv {
 export const ENV_DEFAULTS: Readonly<Record<string, string>> = Object.freeze({
   PORT: '3000',
   HOST: '0.0.0.0',
+  LOG_LEVEL: 'info',
   S3_REGION: 'us-east-1',
   AI_SERVICE_TIMEOUT_MS: '10000',
 });
@@ -76,6 +88,12 @@ export class EnvVariables {
   @IsString()
   @IsNotEmpty()
   HOST!: string;
+
+  // --- logging namespace -------------------------------------------------------
+  // Optional-with-default; the test environment may set "silent".
+  @Type(() => String)
+  @IsEnum(LogLevel)
+  LOG_LEVEL!: LogLevel;
 
   // --- database namespace ----------------------------------------------------
   @Type(() => String)

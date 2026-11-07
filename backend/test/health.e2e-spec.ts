@@ -4,7 +4,8 @@ import type { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
 
-import { NodeEnv } from '../src/config/env.validation.js';
+import { configureApp } from '../src/bootstrap/configure-app.js';
+import { LogLevel, NodeEnv } from '../src/config/env.validation.js';
 import { PrismaService } from '../src/infrastructure/prisma/prisma.service.js';
 
 // AppModule boots the validated config, and ConfigModule.forRoot validates
@@ -13,6 +14,7 @@ import { PrismaService } from '../src/infrastructure/prisma/prisma.service.js';
 // imported afterwards.
 const fakeEnv: Record<string, string> = {
   NODE_ENV: NodeEnv.Test,
+  LOG_LEVEL: LogLevel.Silent,
   DATABASE_URL: 'postgresql://apps_user:pw@localhost:5432/ocularcheck_e2e',
   REDIS_URL: 'redis://:pw@localhost:6379',
   S3_ENDPOINT: 'http://minio:9000',
@@ -39,8 +41,10 @@ describe('Health (e2e)', () => {
         onModuleDestroy: async (): Promise<void> => undefined,
       })
       .compile();
-    moduleRef.useLogger(false);
+    // The production bootstrap (validation pipe, error filter, envelope,
+    // pino logger) — shared with main.ts so tests exercise the real pipeline.
     app = moduleRef.createNestApplication();
+    configureApp(app);
     await app.init();
   });
 
