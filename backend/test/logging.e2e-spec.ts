@@ -63,7 +63,7 @@ describe('Request logging (e2e)', () => {
 
   it('logs structured JSON without tokens, cookies, bodies — but with the request id', async () => {
     const response = await request(app.getHttpServer())
-      .post('/logs-rig')
+      .post('/api/v1/logs-rig')
       .set('Authorization', `Bearer ${TOKEN}`)
       .set('Cookie', 'session=some-cookie-value')
       .send({ password: PASSWORD, email: 'someone@example.com' });
@@ -83,7 +83,7 @@ describe('Request logging (e2e)', () => {
 
     const requestLine = lines.at(-1) as Record<string, unknown>;
     expect(requestLine['req']).toEqual(
-      expect.objectContaining({ method: 'POST', path: '/logs-rig' }),
+      expect.objectContaining({ method: 'POST', path: '/api/v1/logs-rig' }),
     );
     expect(typeof requestLine['responseTime']).toBe('number');
     expect((requestLine['res'] as Record<string, unknown>)['statusCode']).toBe(201);

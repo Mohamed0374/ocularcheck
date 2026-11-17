@@ -65,7 +65,7 @@ describe('API foundations (e2e)', () => {
 
   it('wraps a valid POST response in the success envelope and echoes a valid X-Request-Id', async () => {
     const response = await request(app.getHttpServer())
-      .post('/test-rig/echo')
+      .post('/api/v1/test-rig/echo')
       .set('X-Request-Id', VALID_REQUEST_ID)
       .send({ email: 'user@example.com', name: 'Ada' });
 
@@ -80,7 +80,7 @@ describe('API foundations (e2e)', () => {
 
   it('returns 422 with stable details for a missing field — and never echoes values', async () => {
     const response = await request(app.getHttpServer())
-      .post('/test-rig/echo')
+      .post('/api/v1/test-rig/echo')
       .set('X-Request-Id', VALID_REQUEST_ID)
       .send({ email: SECRET_VALUE, name: 'x' });
 
@@ -103,7 +103,7 @@ describe('API foundations (e2e)', () => {
 
   it('rejects non-whitelisted (extra) fields', async () => {
     const response = await request(app.getHttpServer())
-      .post('/test-rig/echo')
+      .post('/api/v1/test-rig/echo')
       .send({ email: 'user@example.com', name: 'Ada', extraField: 'zz' });
 
     expect(response.status).toBe(422);
@@ -116,7 +116,7 @@ describe('API foundations (e2e)', () => {
 
   it('reports wrong types through constraint names only', async () => {
     const response = await request(app.getHttpServer())
-      .post('/test-rig/echo')
+      .post('/api/v1/test-rig/echo')
       .send({ email: 1234, name: 'Ada' });
 
     expect(response.status).toBe(422);
@@ -128,7 +128,7 @@ describe('API foundations (e2e)', () => {
 
   it('builds nested dot paths for @ValidateNested payloads', async () => {
     const response = await request(app.getHttpServer())
-      .post('/test-rig/nested')
+      .post('/api/v1/test-rig/nested')
       .send({ contact: { email: SECRET_VALUE } });
 
     expect(response.status).toBe(422);
@@ -138,9 +138,12 @@ describe('API foundations (e2e)', () => {
     expect(response.text).not.toContain(SECRET_VALUE);
   });
 
-  it('renders unknown routes with the 404 error shape (NOT_FOUND)', async () => {
+  it('renders unknown API routes with the 404 error shape (NOT_FOUND)', async () => {
+    // With the /api global prefix, Nest's JSON 404 envelope covers the
+    // versioned API surface; unknown non-/api paths are handled by Express's
+    // default handler (documented in docs/api-conventions.md).
     const response = await request(app.getHttpServer())
-      .get('/does-not-exist')
+      .get('/api/does-not-exist')
       .set('X-Request-Id', VALID_REQUEST_ID);
 
     expect(response.status).toBe(404);
@@ -148,13 +151,13 @@ describe('API foundations (e2e)', () => {
     expect(error['code']).toBe('NOT_FOUND');
     expect(error['message']).toBe('Resource not found');
     expect(error['requestId']).toBe(VALID_REQUEST_ID);
-    expect(error['path']).toBe('/does-not-exist');
+    expect(error['path']).toBe('/api/does-not-exist');
     expect(typeof error['timestamp']).toBe('string');
     expect(response.body['data']).toBeUndefined();
   });
 
   it('hides unexpected errors behind the generic 500 message', async () => {
-    const response = await request(app.getHttpServer()).post('/test-rig/throw');
+    const response = await request(app.getHttpServer()).post('/api/v1/test-rig/throw');
 
     expect(response.status).toBe(500);
     const error = response.body['error'];
@@ -165,7 +168,7 @@ describe('API foundations (e2e)', () => {
   });
 
   it('maps Prisma P2002 to 409 CONFLICT without meta leakage', async () => {
-    const response = await request(app.getHttpServer()).post('/test-rig/prisma-conflict');
+    const response = await request(app.getHttpServer()).post('/api/v1/test-rig/prisma-conflict');
 
     expect(response.status).toBe(409);
     const error = response.body['error'];
@@ -178,7 +181,7 @@ describe('API foundations (e2e)', () => {
 
   it('replaces a malicious X-Request-Id with a generated UUID and echoes it consistently', async () => {
     const response = await request(app.getHttpServer())
-      .post('/test-rig/echo')
+      .post('/api/v1/test-rig/echo')
       .set('X-Request-Id', 'bad<value')
       .send({ email: 'user@example.com', name: 'Ada' });
 
@@ -191,11 +194,36 @@ describe('API foundations (e2e)', () => {
 
   it('uses one correlation id end-to-end: error response equals the X-Request-Id header', async () => {
     const response = await request(app.getHttpServer())
-      .get('/does-not-exist')
+      .get('/api/does-not-exist')
       .set('X-Request-Id', 'correlation-id-404-test');
 
     expect(response.status).toBe(404);
     expect(response.headers['x-request-id']).toBe('correlation-id-404-test');
     expect(response.body['error']['requestId']).toBe('correlation-id-404-test');
+  });
+
+  it('serves feature routes only at /api/v1 — not unversioned, not other versions', async () => {
+    const versioned = await request(app.getHttpServer()).get('/api/v1/test-rig/version-marker');
+    expect(versioned.status).toBe(200);
+    // Enveloped like every other feature route: { data, meta: { requestId } }.
+    expect(versioned.body['data']).toEqual({ ok: true });
+    expect(typeof versioned.body['meta']['requestId']).toBe('string');
+
+    // Unversioned /api path is not routed (default version applies only via
+    // URI versions, not by making /api directly hit v1).
+    const unversioned = await request(app.getHttpServer()).get('/api/test-rig/version-marker');
+    expect(unversioned.status).toBe(404);
+    expect(unversioned.body['error']['code']).toBe('NOT_FOUND');
+
+    // /api/v2 has no controllers yet.
+    const v2 = await request(app.getHttpServer()).get('/api/v2/test-rig/version-marker');
+    expect(v2.status).toBe(404);
+    expect(v2.body['error']['code']).toBe('NOT_FOUND');
+    expect(v2.body['error']['message']).toBe('Resource not found');
+  });
+
+  it('does not leak the framework name in X-Powered-By', async () => {
+    const response = await request(app.getHttpServer()).get('/health');
+    expect(response.headers['x-powered-by']).toBeUndefined();
   });
 });
