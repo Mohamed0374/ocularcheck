@@ -274,9 +274,9 @@ AuditLog(id, actor_id, action, entity, entity_id, ip, created_at)
 ### PHASE 2 — Backend foundation
 **Goal:** a production-shaped API core, no features yet.
 
-- [ ] **P2-T1 🤖** Typed + validated config module (fail fast on missing env).
-- [ ] **P2-T2 🤖** Prisma setup, first migration (User, PatientProfile, DoctorProfile), seed script.
-- [ ] **P2-T3 🤖** Global validation pipe, exception filter (consistent error JSON), request-id logging (pino), response envelope.
+- [x] **P2-T1 🤖** Typed + validated config module (fail fast on missing env).
+- [x] **P2-T2 🤖** Prisma setup, first migration (User, PatientProfile, DoctorProfile), seed script.
+- [x] **P2-T3 🤖** Global validation pipe, exception filter (consistent error JSON), request-id logging (pino), response envelope.
 - [ ] **P2-T4 🤖** API versioning `/api/v1`, Swagger (dev only), health/readiness endpoints.
 - [ ] **P2-T5 🤖** Unit + e2e test setup with a Dockerized test DB.
 
